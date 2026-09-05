@@ -43,6 +43,7 @@ python3 scripts/serve.py . 8747
 | class | 用途 |
 |---|---|
 | `.mist-split` | 主 2 : 次 1 兩欄。`--even` 改成 1:1 |
+| `.mist-grid` | 等寬多欄。欄數由容器寬度決定，窄了自己換行 |
 | `.mist-stack` / `--sm` | 垂直堆疊 |
 | `.mist-row` / `--between` | 水平排列 |
 | `.mist-grow` | 佔滿剩餘寬度 |
@@ -67,6 +68,10 @@ python3 scripts/serve.py . 8747
 | **StatTile** | 大數字 + 標籤。多欄用 `.mist-stats` 包 | `<div class="mist-stat"><span class="mist-stat__value">12</span><span class="mist-stat__label">天</span></div>` |
 | **GeneratingState** | AI 生成中。`.mist-dots` 點點／`.mist-skeleton` 骨架線／`.mist-stream` 逐字游標 | 見下方 |
 | **Chart** | 五種，**各有職責不要混用**。見下方「圖表怎麼選」 | 見下方 |
+| **Disclosure** | 可展開的列。左側狀態色條可選，收合時仍分得出類別 | 見下方 |
+| **Segmented** | 少量互斥選項（2–4 個、字短）。多了或字長改用 OptionCard | 見下方 |
+| **Slider** | 連續值輸入。值由頁面顯示在 `__value` | 見下方 |
+| **Table** | 可比較的扁平資料。群組列、數字欄、狀態色條、橫向捲 | 見下方 |
 | **Field** | 文字輸入。`textarea` 加同一個 class | `<div class="mist-field"><label class="mist-field__label" for="x">標題</label><input class="mist-field__input" id="x"></div>` |
 | **Nav** | 頂部導覽。目前頁加 `.is-active` | `<nav class="mist-nav">…</nav>` |
 
@@ -243,7 +248,7 @@ pathLength 把弧長正規化成 0–100，所以 `--mist-arc` 直接寫百分�
 <div class="mist-lollipop">
   <div class="mist-lollipop__col is-selected" style="--mist-stem: 78%">
     <span class="mist-lollipop__tip">3 項</span>
-    <div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div>
+    <div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div>
     <button class="mist-lollipop__node">二</button>
   </div>
   <!-- 其餘欄同結構，不加 is-selected -->
@@ -252,6 +257,69 @@ pathLength 把弧長正規化成 0–100，所以 `--mist-arc` 直接寫百分�
 
 密集細線圖：`.mist-hairbars`（可加 `--accent` 橘紅 ／ `--mark` 深色），每根 `<i style="--mist-bar: 62%">`。
 **根數要多**（20 根以上）才會讀成線；根數少會看起來像實心色塊。
+
+### Disclosure
+
+展開狀態靠 `aria-expanded` 與 panel 的 `hidden`，**不要用 class 控制顯隱**。
+色條變體 `--done / --active / --attention / --idle` 可省略。
+
+```html
+<div class="mist-disclosure">
+  <div class="mist-disclosure__item mist-disclosure__item--active">
+    <button class="mist-disclosure__summary" type="button" aria-expanded="true">
+      <svg class="mist-disclosure__marker" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="mist-disclosure__body">
+        <span class="mist-disclosure__label">標題</span>
+        <span class="mist-disclosure__meta">副標（可省略）</span>
+      </span>
+      <span class="mist-disclosure__aside"><span class="mist-badge mist-badge--active">進行中</span></span>
+    </button>
+    <div class="mist-disclosure__panel">展開後的內容</div>
+  </div>
+</div>
+```
+
+### Segmented
+
+```html
+<div class="mist-segmented" role="group" aria-label="可用時數">
+  <button class="mist-segmented__item" type="button" aria-pressed="true">2 小時</button>
+  <button class="mist-segmented__item" type="button">4 小時</button>
+</div>
+```
+
+滿寬用 `.mist-segmented--block`，上方小標題用 `.mist-segmented__label`。
+
+### Slider
+
+```html
+<div class="mist-slider">
+  <div class="mist-slider__head">
+    <label class="mist-slider__label" for="r1">現時吸引力</label>
+    <span class="mist-slider__value" id="r1-out">8</span>
+  </div>
+  <input class="mist-slider__input" type="range" id="r1" min="0" max="10" value="8">
+</div>
+```
+
+### Table
+
+```html
+<div class="mist-table-scroll">
+  <table class="mist-table">
+    <thead><tr><th>分支</th><th class="mist-table__num">本季行動</th></tr></thead>
+    <tbody>
+      <tr class="mist-table__group"><td colspan="2">群組標題</td></tr>
+      <tr class="mist-table__row mist-table__row--attention">
+        <td>英文口說<span class="mist-table__meta">副標</span></td>
+        <td class="mist-table__num">11 次</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+**寬表一定要包 `.mist-table-scroll`** —— 讓表格自己橫向捲，頁面不准橫向捲。
 
 ## 資料介面
 
@@ -265,8 +333,83 @@ pathLength 把弧長正規化成 0–100，所以 `--mist-arc` 直接寫百分�
 | `--mist-arc` | 環形圖單一段佔整圈的百分比 |
 | `--mist-arc-start` | 環形圖單一段的起點百分比 |
 
+### Diagram（架構／流程圖）
+
+節點和線在**同一個 1600×900 座標空間**裡：節點用 `--x` / `--y` 定位（純數字，不是 px），
+SVG 用同一組數字畫線。所以「線接不到框」不可能發生。
+
+節點半寬 88、半高約 33 —— 線的端點要自己算，例如兩個相鄰節點（x=160 與 x=460、同一列）
+的水平連線就是 `M248,y H372`。
+
+```html
+<div class="mist-diagram mist-diagram--frame">
+  <span class="mist-diagram__heading" style="--x: 72; --y: 86">標題</span>
+  <span class="mist-diagram__band" style="--x: 72; --y: 162">① 區段</span>
+
+  <svg class="mist-diagram__edges" viewBox="0 0 1600 900" fill="none" aria-hidden="true">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path class="mist-diagram__arrowhead" d="M0,1 L9,5 L0,9 z"></path></marker></defs>
+    <path class="mist-diagram__edge" marker-end="url(#ah)" d="M248,220 H372"></path>
+    <path class="mist-diagram__edge mist-diagram__edge--dashed" marker-end="url(#ah)" d="M215,253 L262,307"></path>
+  </svg>
+
+  <div class="mist-diagram__node" style="--x: 160; --y: 220">
+    <span class="mist-diagram__label">節點名稱</span>
+    <span class="mist-diagram__sub">補充</span>
+  </div>
+  <span class="mist-diagram__step" style="--x: 310; --y: 220">1</span>
+  <span class="mist-diagram__edge-label" style="--x: 310; --y: 190">線上的說明</span>
+
+  <div class="mist-diagram__note" style="--x: 1360; --y: 182">
+    <span class="mist-diagram__note-title">標題</span>
+    <span class="mist-diagram__note-text">說明文字</span>
+  </div>
+</div>
+```
+
+| 修飾 | 用途 |
+|---|---|
+| `--frame` | 整張圖自己就是 app 表面（16:9 畫布） |
+| `__node--strong` | 深色實心。流程的入口與出口 |
+| `__node--stack` | 疊卡。表示「同一種東西有很多份」 |
+| `__edge--dashed` | 虛線。非主線的迴圈或選配路徑 |
+| `__edge-label--wrap` | 長標籤換行 |
+| `__note--top` | `--y` 變成上緣而非中心。底部一排註解用它對齊 |
+
+### 用顏色分階段
+
+`--alt`（淡藍）／`--accent`（ember 橘）／不加（深藍黑）三組，同時套在
+`__node`、`__rule`、`__edge`、`__step`、`__band` 上，一個階段一個顏色。
+**跨階段的線不上色**，維持中性灰 —— 顏色的意義就是「同一個階段」。
+
+節點頂端加一條 `__rule` 小色條標示階段：
+
+```html
+<div class="mist-diagram__node mist-diagram__node--accent" style="--x: 180; --y: 400">
+  <span class="mist-diagram__rule mist-diagram__rule--accent"></span>
+  <span class="mist-diagram__label">Analyzer</span>
+</div>
+```
+
+`__step` 填色用**深一階**的 `accent-bold` / `accent-alt-bold`，不是 `accent` ——
+ember.40 配白字只有 3.6:1 不到 AA，深一階之後是 5.1 與 7.0。
+
+### 節點要看起來分得開
+
+零陰影的風格裡，「這是一個獨立物件」靠兩件事：**亮度差**與**描邊**。
+
+- 畫布用 `surface-sunken`（neutral.15），比一般 app 表面深一階，白卡才浮得起來
+- 節點描邊 **2px** `outline-strong`（neutral.30）。1px 在簡報投影時會消失
+
+**畫線前先量節點實際高度**：有副標的節點 74、只有標題的 57。端點算錯就會插進卡片裡。
+
+**固定尺寸畫布要塞進視窗**：外層包 `.mist-center` + `.mist-fit`，再加一段選配 script 設
+`--mist-fit-scale`。沒有 script 時畫布維持 1600×900，內容一樣正確。
+
+範例見 `pages/architecture.html`。
+
 ## 目前沒有的元件
 
-Dialog / Toast / Tabs / Table / Switch / Avatar / Dropdown（真的下拉）/ 檔案上傳 / 堆疊橫條圖。
+Dialog / Toast / Tabs / Switch / Avatar / Dropdown（真的下拉）/ 檔案上傳 / 堆疊橫條圖。
 
 需要時照「鐵則 2」處理 —— 在 `components.css` 加，不要在頁面裡寫。

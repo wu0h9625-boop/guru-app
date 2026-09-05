@@ -89,9 +89,9 @@ tokens/build/mist.tokens.json    ← W3C DTCG，餵 style-dictionary（也是跨
 
 ## 6. 元件
 
-12 個，實作在 `css/components.css`，全狀態展示在 `reference.html`。
+16 個，實作在 `css/components.css`，全狀態展示在 `reference.html`。
 
-Surface / Nav / Button / Badge / OptionCard / SpecCard / Progress / TaskItem / StatTile / GeneratingState / Field
+Surface / Nav / Button / Badge / OptionCard / SpecCard / Progress / TaskItem / StatTile / GeneratingState / Field / Disclosure / Segmented / Slider / Table
 
 **圖表**（各有職責，不要混用）：
 

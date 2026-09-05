@@ -20,6 +20,9 @@
  *   --mist-bar             密集細線圖的單根高度比例
  *   --mist-arc             環形圖單一段佔整圈的百分比（0–100 純數字）
  *   --mist-arc-start       環形圖單一段的起點百分比（0–100 純數字）
+ *   --x                    架構圖節點中心的 X（1600×900 空間裡的純數字）
+ *   --y                    架構圖節點中心的 Y（同上）
+ *   --mist-fit-scale       固定尺寸畫布的縮放比例（選配 script 設定）
  */
 
 /* ═══════════════════════════════════════════════════════════
@@ -61,6 +64,14 @@ body.mist {
 .mist-split--even { grid-template-columns: 1fr; }
 @media (min-width: 900px) { .mist-split--even { grid-template-columns: 1fr 1fr; } }
 
+/* 等寬多欄。欄數由容器寬度決定，塞不下就自己換行 —— 不要為了三欄寫死 3
+   min() 是必要的：容器比欄寬下限還窄時 minmax 的 min 不會縮，內容會整片溢出 */
+.mist-grid {
+  display: grid;
+  gap: var(--mist-sys-spacing-stack-lg);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--mist-sys-size-card-min), 100%), 1fr));
+}
+
 .mist-row   { display: flex; align-items: center; gap: var(--mist-sys-spacing-inset-sm); }
 .mist-row--between { justify-content: space-between; }
 .mist-stack { display: flex; flex-direction: column; gap: var(--mist-sys-spacing-stack-md); }
@@ -69,6 +80,15 @@ body.mist {
 
 /* 限寬容器 */
 .mist-shell { max-inline-size: var(--mist-comp-surface-shell-max-width); margin-inline: auto; }
+
+/* 置中，給固定尺寸的畫布用 */
+.mist-center { display: grid; place-items: center; }
+/* 等比縮放容器。--mist-fit-scale 由頁面的選配 script 設定；
+   沒設定時是 1，畫布維持原尺寸、內容一樣正確。
+
+   用 zoom 不用 transform：transform 不改變版面尺寸，縮小後外層仍佔原始高度，
+   頁面會多出一條捲軸。zoom 會連版面一起縮。 */
+.mist-fit { zoom: var(--mist-fit-scale, 1); }
 .mist-shell--narrow { max-inline-size: var(--mist-comp-surface-shell-max-width-narrow); }
 
 
@@ -79,6 +99,9 @@ body.mist {
 .mist-task:focus-visible,
 .mist-nav__link:focus-visible,
 .mist-field__input:focus-visible,
+.mist-disclosure__summary:focus-visible,
+.mist-segmented__item:focus-visible,
+.mist-slider__input:focus-visible,
 .mist-chart__node:focus-visible {
   outline: var(--mist-comp-a11y-focus-ring-width) solid var(--mist-comp-a11y-focus-ring-color);
   outline-offset: var(--mist-comp-a11y-focus-ring-offset);
@@ -624,15 +647,8 @@ body.mist {
 .mist-lollipop__col > * { position: relative; }
 
 .mist-lollipop__plot { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; inline-size: 100%; }
-.mist-lollipop__dot {
-  inline-size: var(--mist-comp-chart-dot-size);
-  block-size: var(--mist-comp-chart-dot-size);
-  border-radius: var(--mist-comp-chart-dot-shape);
-  background: var(--mist-comp-chart-dot-color);
-  flex: none;
-}
-.mist-lollipop__col.is-selected .mist-lollipop__dot { background: var(--mist-comp-chart-dot-color-active); }
-/* 柱身：12px 的條，兩端圓頭。原本是 1px hairline —— 太細，讀不出高度差 */
+/* 柱身：12px 的條，兩端圓頭。原本是 1px hairline + 一顆圓點（lollipop），
+   加粗之後那顆點變成浮在柱子上的贅生物，已移除 —— 圓頭本身就是收尾。 */
 .mist-lollipop__stem {
   inline-size: var(--mist-comp-chart-stem-width);
   border-radius: var(--mist-comp-chart-stem-shape);
@@ -945,7 +961,360 @@ textarea.mist-field__input {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   13. 動效偏好
+   13. diagram — 架構／流程圖
+   節點與線都在同一個 1600×900 的座標空間裡：節點用 --x / --y
+   定位（單位是那個空間裡的數字，不是 px），SVG 直接用同一組數字畫線。
+   這樣「線接不到框」這種事不可能發生。
+   ═══════════════════════════════════════════════════════════ */
+.mist-diagram {
+  position: relative;
+  /* 疊卡用負 z-index。脈絡要建在畫布這一層 —— 建在節點上的話，
+     負 z-index 只會退到「節點自己的背景之上」，疊卡就蓋在卡面上了。 */
+  isolation: isolate;
+  inline-size: var(--mist-comp-diagram-canvas-width);
+  block-size: var(--mist-comp-diagram-canvas-height);
+  flex: none;
+}
+/* 整張圖自己就是那層畫布（16:9）。
+   畫布比一般 app 表面再深一階 —— 圖上有十幾張白卡，亮度差不夠的話
+   它們會糊成一片。這裡拉大差距，卡片才各自分得開。 */
+.mist-diagram--frame {
+  background: var(--mist-comp-diagram-canvas-color);
+  border-radius: var(--mist-comp-surface-app-shape);
+}
+
+/* 線在下、節點在上 */
+.mist-diagram__edges { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
+.mist-diagram__edge {
+  fill: none;
+  stroke: var(--mist-comp-diagram-edge-color);
+  stroke-width: var(--mist-comp-diagram-edge-width);
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.mist-diagram__edge--dashed { stroke-dasharray: var(--mist-comp-diagram-edge-dash); }
+/* 依階段上色。跨階段的線維持中性灰 —— 顏色的意義就是「同一個階段」 */
+.mist-diagram__edge--mark   { stroke: var(--mist-comp-diagram-edge-color-mark); }
+.mist-diagram__edge--accent { stroke: var(--mist-comp-diagram-edge-color-accent); }
+.mist-diagram__edge--alt    { stroke: var(--mist-comp-diagram-edge-color-alt); }
+.mist-diagram__edge--mark   > .mist-diagram__arrowhead { fill: var(--mist-comp-diagram-edge-color-mark); }
+.mist-diagram__arrowhead { fill: var(--mist-comp-diagram-edge-color); }
+
+/* 所有絕對定位的東西共用同一組座標換算。--x / --y 是節點中心。 */
+.mist-diagram__node,
+.mist-diagram__step,
+.mist-diagram__edge-label,
+.mist-diagram__note,
+.mist-diagram__band,
+.mist-diagram__heading,
+.mist-diagram__caption {
+  position: absolute;
+  left: calc(var(--x, 0) * 100% / 1600);
+  top:  calc(var(--y, 0) * 100% / 900);
+  transform: translate(-50%, -50%);
+}
+
+.mist-diagram__node {
+  min-inline-size: var(--mist-comp-diagram-node-min-width);
+  padding: var(--mist-comp-diagram-node-padding-y) var(--mist-comp-diagram-node-padding-x);
+  border: var(--mist-comp-diagram-node-border-width) solid var(--mist-comp-diagram-node-border-color);
+  border-radius: var(--mist-comp-diagram-node-shape);
+  background: var(--mist-comp-diagram-node-color);
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--mist-comp-diagram-node-gap);
+  text-align: center;
+}
+.mist-diagram__label { font: var(--mist-comp-diagram-label-type); color: var(--mist-comp-diagram-label-color); }
+.mist-diagram__sub   { font: var(--mist-comp-diagram-sub-type);   color: var(--mist-comp-diagram-sub-color); }
+
+/* 節點頂端的小色條，標示它屬於哪個階段。跨在上緣邊框上。 */
+.mist-diagram__rule {
+  position: absolute; top: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  inline-size: var(--mist-comp-diagram-rule-width);
+  block-size: var(--mist-comp-diagram-rule-height);
+  border-radius: var(--mist-comp-diagram-rule-shape);
+}
+.mist-diagram__rule--mark   { background: var(--mist-comp-diagram-rule-color-mark); }
+.mist-diagram__rule--accent { background: var(--mist-comp-diagram-rule-color-accent); }
+.mist-diagram__rule--alt    { background: var(--mist-comp-diagram-rule-color-alt); }
+
+/* 深色實心：流程的入口與出口 */
+.mist-diagram__node--strong {
+  background: var(--mist-comp-diagram-node-strong-color);
+  border-color: var(--mist-comp-diagram-node-strong-color);
+}
+.mist-diagram__node--strong .mist-diagram__label { color: var(--mist-comp-diagram-node-strong-label-color); }
+.mist-diagram__node--strong .mist-diagram__sub   { color: var(--mist-comp-diagram-node-strong-sub-color); }
+
+/* 疊卡：表示「同一種東西有很多份」。用兩層 pseudo-element，不用多寫 DOM。 */
+.mist-diagram__node--stack::before,
+.mist-diagram__node--stack::after {
+  content: ""; position: absolute; inset: 0;
+  border: var(--mist-comp-diagram-node-border-width) solid var(--mist-comp-diagram-stack-border-color);
+  border-radius: inherit;
+  background: var(--mist-comp-diagram-stack-color);
+  z-index: -1;
+}
+.mist-diagram__node--accent.mist-diagram__node--stack::before,
+.mist-diagram__node--accent.mist-diagram__node--stack::after { background: var(--mist-comp-diagram-stack-color-accent); }
+.mist-diagram__node--alt.mist-diagram__node--stack::before,
+.mist-diagram__node--alt.mist-diagram__node--stack::after { background: var(--mist-comp-diagram-stack-color-alt); }
+
+.mist-diagram__node--stack::before {
+  translate: calc(var(--mist-comp-diagram-stack-offset) * -1) calc(var(--mist-comp-diagram-stack-offset) * -1);
+  z-index: -1;
+}
+.mist-diagram__node--stack::after {
+  translate: calc(var(--mist-comp-diagram-stack-offset) * -2) calc(var(--mist-comp-diagram-stack-offset) * -2);
+  z-index: -2;
+}
+
+/* 流程編號 */
+.mist-diagram__step {
+  inline-size: var(--mist-comp-diagram-step-size);
+  block-size: var(--mist-comp-diagram-step-size);
+  border-radius: var(--mist-comp-diagram-step-shape);
+  background: var(--mist-comp-diagram-step-color);
+  color: var(--mist-comp-diagram-step-label-color);
+  font: var(--mist-comp-diagram-step-label-type);
+  display: grid; place-items: center;
+}
+/* 用深一階的強調色，白字才有足夠對比（ember.40 對白只有 3.6:1） */
+.mist-diagram__step--accent { background: var(--mist-comp-diagram-step-color-accent); }
+.mist-diagram__step--alt    { background: var(--mist-comp-diagram-step-color-alt); }
+
+/* 線上的說明文字。要有底色才不會跟線疊在一起看不清 */
+.mist-diagram__edge-label {
+  font: var(--mist-comp-diagram-edge-label-type);
+  color: var(--mist-comp-diagram-edge-label-color);
+  background: var(--mist-comp-diagram-edge-label-backdrop);
+  padding-inline: var(--mist-comp-diagram-edge-label-padding-x);
+  white-space: nowrap;
+}
+.mist-diagram__edge-label--wrap { white-space: normal; inline-size: var(--mist-comp-diagram-node-min-width); text-align: center; }
+
+/* 標題與區段標籤是靠左對齊的，不置中 */
+.mist-diagram__heading,
+.mist-diagram__caption,
+.mist-diagram__band { transform: translate(0, -50%); }
+.mist-diagram__heading { font: var(--mist-comp-diagram-heading-type); color: var(--mist-comp-diagram-heading-color); }
+.mist-diagram__caption { font: var(--mist-comp-diagram-caption-type); color: var(--mist-comp-diagram-caption-color); }
+
+/* 側邊註解 */
+.mist-diagram__note {
+  inline-size: var(--mist-comp-diagram-note-width);
+  max-inline-size: var(--mist-comp-diagram-note-width);
+  padding: var(--mist-comp-diagram-note-padding);
+  border-radius: var(--mist-comp-diagram-note-shape);
+  background: var(--mist-comp-diagram-note-color);
+  display: flex; flex-direction: column;
+  gap: var(--mist-comp-diagram-note-gap);
+}
+/* 底部一排註解時用這個：--y 變成「上緣」而不是中心，高度不同也能對齊 */
+.mist-diagram__note--top { transform: translate(-50%, 0); }
+.mist-diagram__note-title { font: var(--mist-comp-diagram-note-title-type); color: var(--mist-comp-diagram-note-title-color); }
+.mist-diagram__note-text  { font: var(--mist-comp-diagram-note-type);       color: var(--mist-comp-diagram-note-text-color); }
+
+/* 區段標題（蒐集／分析／規劃） */
+.mist-diagram__band {
+  font: var(--mist-comp-diagram-band-label-type);
+  color: var(--mist-comp-diagram-band-label-color);
+  white-space: nowrap;
+  display: flex; align-items: center;
+  gap: var(--mist-comp-diagram-band-gap);
+}
+.mist-diagram__band::before {
+  content: ""; flex: none;
+  inline-size: var(--mist-comp-diagram-band-dot-size);
+  block-size: var(--mist-comp-diagram-band-dot-size);
+  border-radius: var(--mist-comp-diagram-band-dot-shape);
+  background: var(--mist-comp-diagram-rule-color-mark);
+}
+.mist-diagram__band--accent::before { background: var(--mist-comp-diagram-rule-color-accent); }
+.mist-diagram__band--alt::before    { background: var(--mist-comp-diagram-rule-color-alt); }
+
+/* ═══════════════════════════════════════════════════════════
+   14. disclosure — 可展開的列（手風琴）
+   左側狀態色條是可選的：它讓一疊列在收合狀態下仍然分得出類別。
+   ═══════════════════════════════════════════════════════════ */
+.mist-disclosure {
+  background: var(--mist-comp-disclosure-container-color);
+  border: var(--mist-comp-disclosure-container-border-width) solid var(--mist-comp-disclosure-container-border-color);
+  border-radius: var(--mist-comp-disclosure-container-shape);
+  overflow: hidden;
+}
+.mist-disclosure__item {
+  --stripe: transparent;
+  border-inline-start: var(--mist-comp-disclosure-stripe-width) solid var(--stripe);
+}
+.mist-disclosure__item + .mist-disclosure__item {
+  border-block-start: var(--mist-comp-disclosure-item-divider-width) solid var(--mist-comp-disclosure-item-divider-color);
+}
+.mist-disclosure__item--done      { --stripe: var(--mist-comp-disclosure-stripe-color-done); }
+.mist-disclosure__item--active    { --stripe: var(--mist-comp-disclosure-stripe-color-active); }
+.mist-disclosure__item--attention { --stripe: var(--mist-comp-disclosure-stripe-color-attention); }
+.mist-disclosure__item--idle      { --stripe: var(--mist-comp-disclosure-stripe-color-idle); }
+
+.mist-disclosure__summary {
+  display: flex; align-items: center;
+  gap: var(--mist-comp-disclosure-summary-gap);
+  inline-size: 100%;
+  min-block-size: var(--mist-comp-disclosure-summary-min-height);
+  padding: var(--mist-comp-disclosure-summary-padding-y) var(--mist-comp-disclosure-summary-padding-x);
+  background: var(--mist-comp-disclosure-summary-color-enabled);
+  border: 0; text-align: start; cursor: pointer;
+  transition: background-color 140ms ease;
+}
+.mist-disclosure__summary:hover { background: var(--mist-comp-disclosure-summary-color-hover); }
+
+.mist-disclosure__marker {
+  flex: none;
+  inline-size: var(--mist-comp-disclosure-marker-size);
+  block-size: var(--mist-comp-disclosure-marker-size);
+  color: var(--mist-comp-disclosure-marker-color);
+  transition: transform 140ms ease;
+}
+.mist-disclosure__summary[aria-expanded="true"] .mist-disclosure__marker { transform: rotate(90deg); }
+
+.mist-disclosure__body  { display: flex; flex-direction: column; gap: var(--mist-comp-disclosure-panel-gap); flex: 1; min-inline-size: 0; }
+.mist-disclosure__label { font: var(--mist-comp-disclosure-label-type); color: var(--mist-comp-disclosure-label-color); }
+.mist-disclosure__meta  { font: var(--mist-comp-disclosure-meta-type);  color: var(--mist-comp-disclosure-meta-color); }
+.mist-disclosure__aside { display: flex; align-items: center; gap: var(--mist-comp-disclosure-summary-gap); flex-wrap: wrap; justify-content: flex-end; }
+
+.mist-disclosure__panel {
+  display: flex; flex-direction: column;
+  gap: var(--mist-comp-disclosure-panel-gap);
+  padding: var(--mist-comp-disclosure-panel-padding-y) var(--mist-comp-disclosure-panel-padding-x);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   15. segmented — 少量互斥選項的分段控制
+   選項多於四個、或選項字很長時不要用它，改用 OptionCard。
+   ═══════════════════════════════════════════════════════════ */
+.mist-segmented {
+  display: inline-flex;
+  block-size: var(--mist-comp-segmented-container-height);
+  padding: var(--mist-comp-segmented-container-padding);
+  border-radius: var(--mist-comp-segmented-container-shape);
+  background: var(--mist-comp-segmented-container-color);
+}
+.mist-segmented--block { display: flex; inline-size: 100%; }
+.mist-segmented__item {
+  flex: 1;
+  padding-inline: var(--mist-comp-segmented-item-padding-x);
+  border: 0;
+  border-radius: var(--mist-comp-segmented-item-shape);
+  background: transparent;
+  color: var(--mist-comp-segmented-item-label-color-enabled);
+  font: var(--mist-comp-segmented-item-type);
+  cursor: pointer; white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+.mist-segmented__item:hover:not([aria-pressed="true"]):not(:disabled) {
+  background: var(--mist-comp-segmented-item-color-hover);
+}
+.mist-segmented__item[aria-pressed="true"] {
+  background: var(--mist-comp-segmented-item-color-selected);
+  color: var(--mist-comp-segmented-item-label-color-selected);
+}
+.mist-segmented__item:disabled {
+  color: var(--mist-comp-segmented-item-label-color-disabled);
+  cursor: not-allowed;
+}
+.mist-segmented__label { font: var(--mist-comp-segmented-label-type); color: var(--mist-comp-segmented-label-color); }
+
+/* ═══════════════════════════════════════════════════════════
+   16. slider — 連續值輸入
+   原生 range 的偽元素各家瀏覽器不共用，所以同一組值要寫兩次。
+   ═══════════════════════════════════════════════════════════ */
+.mist-slider { display: flex; flex-direction: column; gap: var(--mist-comp-slider-group-gap); }
+.mist-slider__head  { display: flex; align-items: baseline; justify-content: space-between; gap: var(--mist-comp-slider-group-gap); }
+.mist-slider__label { font: var(--mist-comp-slider-label-type); color: var(--mist-comp-slider-label-color); }
+.mist-slider__value { font: var(--mist-comp-slider-value-type); color: var(--mist-comp-slider-value-color); font-variant-numeric: tabular-nums; }
+
+.mist-slider__input {
+  -webkit-appearance: none; appearance: none;
+  inline-size: 100%; background: transparent; margin: 0; cursor: pointer;
+}
+.mist-slider__input::-webkit-slider-runnable-track {
+  block-size: var(--mist-comp-slider-track-height);
+  border-radius: var(--mist-comp-slider-track-shape);
+  background: var(--mist-comp-slider-track-color);
+}
+.mist-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  inline-size: var(--mist-comp-slider-thumb-size);
+  block-size: var(--mist-comp-slider-thumb-size);
+  border-radius: var(--mist-comp-slider-thumb-shape);
+  background: var(--mist-comp-slider-thumb-color);
+  border: var(--mist-comp-slider-thumb-border-width) solid var(--mist-comp-slider-thumb-border-color);
+  margin-block-start: calc((var(--mist-comp-slider-track-height) - var(--mist-comp-slider-thumb-size)) / 2);
+}
+.mist-slider__input::-moz-range-track {
+  block-size: var(--mist-comp-slider-track-height);
+  border-radius: var(--mist-comp-slider-track-shape);
+  background: var(--mist-comp-slider-track-color);
+}
+.mist-slider__input::-moz-range-thumb {
+  inline-size: var(--mist-comp-slider-thumb-size);
+  block-size: var(--mist-comp-slider-thumb-size);
+  border-radius: var(--mist-comp-slider-thumb-shape);
+  background: var(--mist-comp-slider-thumb-color);
+  border: var(--mist-comp-slider-thumb-border-width) solid var(--mist-comp-slider-thumb-border-color);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   17. table — 可比較的扁平資料
+   寬表一律讓 .mist-table-scroll 自己橫向捲，頁面不准橫向捲。
+   ═══════════════════════════════════════════════════════════ */
+.mist-table-scroll {
+  overflow-x: auto;
+  background: var(--mist-comp-table-container-color);
+  border: var(--mist-comp-table-container-border-width) solid var(--mist-comp-table-container-border-color);
+  border-radius: var(--mist-comp-table-container-shape);
+}
+.mist-table {
+  inline-size: 100%;
+  min-inline-size: var(--mist-comp-table-container-min-width);
+  border-collapse: collapse;
+}
+.mist-table th {
+  text-align: start; white-space: nowrap;
+  padding: var(--mist-comp-table-cell-padding-y) var(--mist-comp-table-cell-padding-x);
+  background: var(--mist-comp-table-header-color);
+  color: var(--mist-comp-table-header-label-color);
+  font: var(--mist-comp-table-header-type);
+  border-block-end: var(--mist-comp-table-header-divider-width) solid var(--mist-comp-table-header-divider-color);
+}
+.mist-table td {
+  vertical-align: top;
+  padding: var(--mist-comp-table-cell-padding-y) var(--mist-comp-table-cell-padding-x);
+  color: var(--mist-comp-table-cell-color);
+  font: var(--mist-comp-table-cell-type);
+  border-block-end: var(--mist-comp-table-row-divider-width) solid var(--mist-comp-table-row-divider-color);
+}
+.mist-table tbody tr:last-child td { border-block-end: 0; }
+.mist-table__num  { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mist-table__meta { display: block; font: var(--mist-comp-table-cell-meta-type); color: var(--mist-comp-table-cell-meta-color); }
+
+/* 群組列：把長表切成看得懂的段落 */
+.mist-table__group td {
+  background: var(--mist-comp-table-group-color);
+  color: var(--mist-comp-table-group-label-color);
+  font: var(--mist-comp-table-group-type);
+  padding-block: var(--mist-comp-table-group-padding-y);
+}
+
+/* 狀態色條掛在該列的第一格 */
+.mist-table__row { --stripe: transparent; }
+.mist-table__row td:first-child { border-inline-start: var(--mist-comp-table-stripe-width) solid var(--stripe); }
+.mist-table__row--done      { --stripe: var(--mist-comp-table-stripe-color-done); }
+.mist-table__row--active    { --stripe: var(--mist-comp-table-stripe-color-active); }
+.mist-table__row--attention { --stripe: var(--mist-comp-table-stripe-color-attention); }
+.mist-table__row--idle      { --stripe: var(--mist-comp-table-stripe-color-idle); }
+
+/* ═══════════════════════════════════════════════════════════
+   18. 動效偏好
    ═══════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

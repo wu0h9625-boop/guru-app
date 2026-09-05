@@ -1,1 +1,10 @@
+# 我自己產生的暫存與輸出，不進版控
+github-drop/
+ui-kit/build/
+
+# 影片素材放剪輯軟體或雲端，不要進 git（單檔動輒數十 MB，且無法 diff）
+pitch/img/*.mp4
+pitch/img/*.mov
+
 .DS_Store
+__pycache__/

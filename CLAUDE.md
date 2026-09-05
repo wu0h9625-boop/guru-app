@@ -4,7 +4,7 @@
 
 **預設不要求他新增任何紀錄行為；會新增 routine 的功能一律標成可選，並說明它換到什麼。**
 
-規格在 `docs/00-目標與範圍.md`（原稿在上層資料夾 `個人教練專案_目標定義.md`，但那份已被定位變更取代，不是副本關係）。**那份文件是規格來源，本專案的任何設計決定不得與它衝突；若要衝突，先在 `PROGRESS.md` 記錄理由。**
+規格拆成兩份：`docs/00-background.md`（persona 與四項痛點）與 `docs/01-solution.md`（解法、功能分層、三天 MVP）。原稿在上層資料夾 `個人教練專案_目標定義.md`，但那份已被定位變更取代，不是副本關係。**這兩份是規格來源，本專案的任何設計決定不得與它們衝突；若要衝突，先在 `PROGRESS.md` 記錄理由。**
 
 ---
 
@@ -20,52 +20,59 @@
 
 ---
 
-## Demo 是三站，已發佈
+## Demo 是三站，兩個通路
 
-| 站 | 檔案 | Artifact 網址 |
-|---|---|---|
-| 1 · 上傳與方向 | `demo/01-intake.html` | https://claude.ai/code/artifact/0db48ad7-2db5-426a-ac7e-b82101905227 |
-| 2 · 目標樹草案 | `demo/02-plan.html` | https://claude.ai/code/artifact/04cea755-9563-4896-9f4c-4796edcbf34d |
-| 3 · 季度對帳 | `demo/03-ledger.html` | https://claude.ai/code/artifact/d9c6f5b0-b21a-4598-b3d7-55ff1a7abbb9 |
+三頁都用 **mist 設計系統**（來源在 `ui-kit/`）。**來源永遠是 `ui-kit/pages/*.html`**，
+根目錄那些單檔都是 `inline_page.py` 產生出來的，不要手改。
 
-三頁互相有硬編連結（站 1 頂端導覽、站 1 底部 CTA 指向站 2），用的就是上面的網址。
+| 站 | 來源 | GitHub Pages（公開，可直接貼） | Artifact（私有，要自己開分享） |
+|---|---|---|---|
+| 1 · 上傳與方向 | `ui-kit/pages/01-intake.html` | [/](https://wu0h9625-boop.github.io/guru-intake-prototype/) | `0db48ad7-2db5-426a-ac7e-b82101905227` |
+| 2 · 目標樹草案 | `ui-kit/pages/02-plan.html` | [/02-plan.html](https://wu0h9625-boop.github.io/guru-intake-prototype/02-plan.html) | `04cea755-9563-4896-9f4c-4796edcbf34d` |
+| 3 · 季度對帳 | `ui-kit/pages/03-ledger.html` | [/03-ledger.html](https://wu0h9625-boop.github.io/guru-intake-prototype/03-ledger.html) | `d9c6f5b0-b21a-4598-b3d7-55ff1a7abbb9` |
 
-### 重新發佈時務必注意
+Artifact 網址前綴是 `https://claude.ai/code/artifact/`。元件參考站（每個元件的每個狀態）在
+[/design/ui/reference.html](https://wu0h9625-boop.github.io/guru-intake-prototype/design/ui/reference.html)。
 
-這些檔案的路徑已經跟當初發佈時不同了。**用 Artifact 工具更新時要帶 `url` 參數指回上表的網址**，否則會產生一個新的 artifact，三頁之間的硬編連結就會斷。
+### 改一頁的完整流程
 
-改動流程：改檔案 → `Artifact` 帶該頁的 `url` 重新發佈 → 網址不變、連結不斷。
+```bash
+cd ui-kit
+# 1. 改 pages/0X-*.html（只放 class，不寫樣式）
+./check.sh                                              # 2. 沒過就是有問題，不要忽略
+python3 scripts/inline_page.py pages/0X-*.html ../demo/0X-*.html                    # 3a. Artifact 片段
+python3 scripts/inline_page.py pages/0X-*.html ~/Documents/guru-intake-prototype/0X-*.html --standalone   # 3b. Pages 版
+```
 
----
+站 1 的 Pages 版要產兩次（`01-intake.html` 與 `index.html`）。改完 Pages 版要 `git push`。
+
+**Artifact 那一路的注意事項**：用 `Artifact` 工具更新時要帶 `url` 參數指回上表的 ID，否則會
+產生新的 artifact，站與站之間的硬編連結就會斷。**發佈前一定要先 `action:"read"` 讀回來**——
+站 1 的 artifact 目前是衝突狀態（線上比本地新）。
+
+兩個通路的差別只有站與站之間的連結：Pages 版是站內相對連結，Artifact 片段由 `inline_page.py`
+自動換成絕對網址。
 
 ## 設計系統
 
-三頁共用同一組 token 與字體，改任何一頁都要維持一致，否則 demo 看起來像三個產品。
+三頁共用 mist，規則全部在 `ui-kit/CLAUDE.md` 與 `ui-kit/ui/COMPONENTS.md`。**寫任何畫面之前先讀那兩份。**
 
-**色**（完整定義在每個檔案開頭的 `:root`，三檔一致）
+四條鐵則：`ui/` 唯讀（會被設計系統的更新整個覆蓋）· 頁面只放 class 不寫樣式 · 缺元件回設計系統做
+（在 `~/Documents/個人設計系統/styles/mist/`）· 真的來不及才寫 `local-overrides.css`，而且它會被列為債務。
 
-| Token | 亮色 | 暗色 | 用途 |
-|---|---|---|---|
-| `--paper` | `#f6f7f4` | `#12161c` | 底 |
-| `--ink` | `#191e26` | `#e9ece7` | 主文字 |
-| `--accent` | `#1c5b58` | `#63aca6` | 主色，petrol |
-| `--good` | `#3f6b3a` | `#82ab79` | 語意色，與主色分離 |
-| `--warn` | `#96631a` | `#c99e51` | 同上 |
-| `--crit` | `#993024` | `#d17f70` | 同上 |
-
-**字**：`Noto Serif TC` 標題／`Noto Sans TC` 正文／`IBM Plex Mono` 數據與科目標籤。從 Google Fonts 載入。
-
-**版型骨架**：三頁共用 `section { grid-template-columns: 96px minmax(0,1fr) }` — 左窄欄放等寬科目代號（`01` `L1` `Q`），右欄放內容。720px 以下改單欄。
-
-**主題**：亮暗兩套都要能看。token 一律先在裸 `:root` 定義完整，再用 `@media (prefers-color-scheme:dark) { :root:not([data-theme="light"]) }` 與 `:root[data-theme="dark"]` 各覆寫一次。不要把顏色的唯一定義寫在 media 或 `[data-theme]` 區塊裡。
+**傳資料進元件只能用三個 custom property**：`--mist-progress-value`、`--mist-stem`、`--mist-bar`。
 
 **每頁形式刻意不同**（別統一成卡片牆）
 
-- 站 1 是**選擇頁** → 可選的樣板卡片陣列
-- 站 2 是**計畫書** → 縮排大綱，層級可推導
-- 站 3 是**報表** → 表格，扁平可比較
+- 站 1 是**選擇頁** → SpecCard 陣列，每張帶固定欄位與代價
+- 站 2 是**計畫書** → Disclosure 手風琴，收合時仍分得出分支類別
+- 站 3 是**報表** → Table，扁平可比較
 
----
+**已知的取捨**（完整理由見 `PROGRESS.md` 2026-09-06 那則）
+
+1. **沒有深色模式**——mist 的亮度分層要整條反轉才做得出來，庫裡還沒做
+2. **沒有等寬字與襯線字**——會計語彙只剩用詞，不再有字體上的對應
+3. **不用實心色塊圖表**——站 1 的時間分配改用 lollipop
 
 ## 語氣
 
@@ -91,7 +98,7 @@
 
 **明確不做**：註冊／多人／權限 · 真實 API 串接（用匯出檔或假資料）
 
-範圍的完整推導在 `docs/00-目標與範圍.md`。
+範圍的完整推導在 `docs/01-solution.md`，三天要交付什麼收斂在該檔第十一節「三天 MVP · 前端殼與後端交界」。
 
 ---
 
@@ -109,12 +116,19 @@
 CLAUDE.md                      ← 你正在讀的這份
 PROGRESS.md                    ← 現在進度、決策紀錄、下一步
 demo/
-  01-intake.html               站 1 上傳與方向（方向假設）
-  02-plan.html                 站 2 目標樹草案
-  03-ledger.html               站 3 季度對帳（對帳教練）
+  01-intake.html               ← 產生出來的 Artifact 片段，不要手改
+  02-plan.html                 ← 同上
+  03-ledger.html               ← 同上
+ui-kit/                        ← 三頁的來源。mist 設計系統的專案端副本
+  pages/                       01-intake / 02-plan / 03-ledger 的來源
+  ui/                          唯讀：token、元件、規格、元件參考站
+  scripts/inline_page.py       產生單檔（Artifact 片段 / --standalone 自架版）
+  check.sh                     交出去前跑這支
 docs/
-  00-目標與範圍.md               規格來源。定位、白板五痛點、14 項缺口、
-                                 機制設計、P0/P1/P2 功能分層
+  00-background.md               persona 張雅婷、四項痛點論述
+  01-solution.md                 解法規格。教練角色、設計原則、目標樹、
+                                 診斷判準、排程、執行力機制、P0/P1/P2
+                                 功能分層、三天 MVP 與後端交界
   02-差異化論述.md               回應「平台也做得到」的挑戰
   03-站1-intake-結構.md          站 1 七段結構（HTML 尚未依此改寫）
 pitch/
@@ -126,5 +140,5 @@ pitch/
 ## 在這個專案裡工作時
 
 - 動任何一頁的**資料**（分支名稱、數字、日期）就要檢查跨頁一致性。三頁共用同一組假資料與同一條時間軸（計畫 2026-06-28 起草 → Q3 對帳 09-04），改一處要跟著改另外兩處。
-- 頁面是單檔 HTML，沒有 build step，沒有相依套件。不要引入框架。
-- 直接改檔案，不要另開新檔——新路徑會變成新的 artifact 網址。
+- 頁面沒有 build step、沒有相依套件、不要引入框架。但**頁面不是單檔了**——來源在 `ui-kit/pages/`，單檔是產生出來的。
+- 改來源檔，不要另開新檔——新路徑會變成新的 artifact 網址。

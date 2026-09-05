@@ -13,6 +13,8 @@
   1. 去掉 doctype / html / head / body 標籤 —— Artifact 會自己包一層
   2. 內嵌的 CSS 裡 `body.mist` 改寫成 `body` —— Artifact 的 body 我們加不到 class
   3. 字體的 <link> 保留（fonts.googleapis.com 在 Artifact 的 CSP 允許清單裡）
+  4. 頁面之間的相對連結換成各站的 Artifact 網址 —— Artifact 是單檔，
+     它旁邊沒有 02-plan.html 可以連
 
 加 --standalone 會輸出完整的 HTML 文件（有 doctype / head / body），
 給靜態主機用（NAS 的 Web Station、任何 web server）。不加就是 Artifact 用的片段。
@@ -20,6 +22,15 @@
 **來源永遠是 pages/ 那一份**（它才過得了 check.sh）。輸出檔不要手改，改了下次會被蓋掉。
 """
 import os, re, sys
+
+# 三站在 Artifact 上各自的網址。內嵌成 Artifact 片段時，頁面之間的相對連結
+# 要換成這些絕對網址；--standalone（自架、GitHub Pages）則保持相對連結。
+ARTIFACTS = {
+    "01-intake.html": "https://claude.ai/code/artifact/0db48ad7-2db5-426a-ac7e-b82101905227",
+    "02-plan.html":   "https://claude.ai/code/artifact/04cea755-9563-4896-9f4c-4796edcbf34d",
+    "03-ledger.html": "https://claude.ai/code/artifact/d9c6f5b0-b21a-4598-b3d7-55ff1a7abbb9",
+}
+
 
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
@@ -54,6 +65,8 @@ def main():
                "<title>%s</title>\n%s\n<style>\n%s\n</style>\n</head>\n<body class=\"mist\">\n%s\n</body>\n</html>\n"
                % (title, "\n".join(fonts), css.replace("body {", "body.mist {"), body))
     else:
+        for name, url in ARTIFACTS.items():
+            body = body.replace('href="%s"' % name, 'href="%s"' % url)
         out = ("<title>%s</title>\n%s\n\n<style>\n%s\n</style>\n\n%s\n"
                % (title, "\n".join(fonts), css, body))
     open(dst, "w", encoding="utf-8").write(out)
