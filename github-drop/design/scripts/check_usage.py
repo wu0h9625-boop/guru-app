@@ -32,6 +32,21 @@ OK_CTX = (
     "animation", "transition", "@media",      # motion / breakpoint 是已知缺口
 )
 
+def mask_comments(text, open_tok="/*", close_tok="*/"):
+    """把註解內容換成空白，但保留換行 —— 行號不變，
+    註解裡寫的示例數值（例如「線寬固定 8px」）才不會被當成 hard-code。"""
+    out, i, n = [], 0, len(text)
+    while i < n:
+        if text.startswith(open_tok, i):
+            j = text.find(close_tok, i + len(open_tok))
+            j = n if j == -1 else j + len(close_tok)
+            out.append("".join("\n" if c == "\n" else " " for c in text[i:j]))
+            i = j
+        else:
+            out.append(text[i]); i += 1
+    return "".join(out)
+
+
 def load_defined(path):
     return set(VAR_DEF.findall(open(path, encoding="utf-8").read()))
 
@@ -52,12 +67,15 @@ def in_ranges(n, ranges):
     return any(a <= n <= b for a, b in ranges)
 
 def check_css(path, defined, errors, warns):
-    text = open(path, encoding="utf-8").read()
-    local = set(VAR_DEF.findall(text)) | set(DATA_DECL.findall(text))
-    allow = allow_sys_ranges(text)
+    raw = open(path, encoding="utf-8").read()
+    # 宣告（local var、資料介面、@allow-sys）寫在註解裡，要從原文讀；
+    # 檢查則對遮掉註解的版本做。
+    local = set(VAR_DEF.findall(raw)) | set(DATA_DECL.findall(raw))
+    allow = allow_sys_ranges(raw)
+    text = mask_comments(raw)
     for n, ln in enumerate(text.split("\n"), 1):
         stripped = ln.strip()
-        if stripped.startswith("*") or stripped.startswith("/*"):
+        if not stripped:
             continue
         # 1 + 2：var() 引用
         for v in VAR_USE.findall(ln):
@@ -81,7 +99,7 @@ def check_css(path, defined, errors, warns):
             errors.append(f"{path}:{n} 寫死長度：{num}{unit} —— {stripped[:64]}")
 
 def check_page(path, defined, errors, warns):
-    text = open(path, encoding="utf-8").read()
+    text = mask_comments(open(path, encoding="utf-8").read(), "<!--", "-->")
     for n, ln in enumerate(text.split("\n"), 1):
         # inline style 只允許純粹的 custom property 宣告（資料介面）。
         # 混進任何一般屬性就是 detach —— 不能靠「含有 -- 就放行」蒙過去。

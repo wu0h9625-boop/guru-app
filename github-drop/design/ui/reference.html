@@ -44,6 +44,22 @@
     </div>
   </div>
 
+  <!-- ══ 版面 ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">版面</h2>
+    <p class="mist-caption mist-muted">.mist-grid 等寬多欄，欄數由容器寬度決定。把瀏覽器拉窄會自己變兩欄、一欄。</p>
+    <div class="mist-grid">
+      <div class="mist-inset"><p class="mist-caption mist-muted">.mist-grid 的第一欄</p></div>
+      <div class="mist-inset"><p class="mist-caption mist-muted">第二欄</p></div>
+      <div class="mist-inset"><p class="mist-caption mist-muted">第三欄</p></div>
+    </div>
+    <p class="mist-caption mist-muted">.mist-split 主 2 : 次 1</p>
+    <div class="mist-split">
+      <div class="mist-inset"><p class="mist-caption mist-muted">主欄</p></div>
+      <div class="mist-inset"><p class="mist-caption mist-muted">次欄</p></div>
+    </div>
+  </div>
+
   <!-- ══ 排版 ══ -->
   <div class="mist-card mist-card--lg">
     <h2 class="mist-h3">排版 — 字級兩極化，字重只有 400 / 500</h2>
@@ -97,6 +113,11 @@
       <span class="mist-badge mist-badge--active">進行中</span>
       <span class="mist-badge mist-badge--idle">尚未開始</span>
       <span class="mist-badge mist-badge--attention">逾期</span>
+    </div>
+    <p class="mist-caption mist-muted">漲跌。刻意不用綠紅 —— 上漲＝深藍黑、下跌＝ember 橘。</p>
+    <div class="mist-row">
+      <span class="mist-badge mist-badge--up"><svg class="mist-badge__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 12V4M4.5 7.5L8 4l3.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>7%</span>
+      <span class="mist-badge mist-badge--down"><svg class="mist-badge__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 4v8M4.5 8.5L8 12l3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>12%</span>
     </div>
   </div>
 
@@ -262,11 +283,11 @@
     <h2 class="mist-h3">Chart <span class="mist-caption mist-muted">★ 招牌正宗實作：高亮柱貫穿資料區到選擇器</span></h2>
     <p class="mist-caption mist-muted">資料介面：style="--mist-stem: 78%"</p>
     <div class="mist-lollipop">
-      <div class="mist-lollipop__col" style="--mist-stem: 22%"><span class="mist-lollipop__tip">0</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">日</button></div>
-      <div class="mist-lollipop__col" style="--mist-stem: 48%"><span class="mist-lollipop__tip">1</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">一</button></div>
-      <div class="mist-lollipop__col is-selected" style="--mist-stem: 78%"><span class="mist-lollipop__tip">3</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">二</button></div>
-      <div class="mist-lollipop__col" style="--mist-stem: 55%"><span class="mist-lollipop__tip">2</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">三</button></div>
-      <div class="mist-lollipop__col" style="--mist-stem: 34%"><span class="mist-lollipop__tip">1</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">四</button></div>
+      <div class="mist-lollipop__col" style="--mist-stem: 22%"><span class="mist-lollipop__tip">0</span><div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">日</button></div>
+      <div class="mist-lollipop__col" style="--mist-stem: 48%"><span class="mist-lollipop__tip">1</span><div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">一</button></div>
+      <div class="mist-lollipop__col is-selected" style="--mist-stem: 78%"><span class="mist-lollipop__tip">3</span><div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">二</button></div>
+      <div class="mist-lollipop__col" style="--mist-stem: 55%"><span class="mist-lollipop__tip">2</span><div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">三</button></div>
+      <div class="mist-lollipop__col" style="--mist-stem: 34%"><span class="mist-lollipop__tip">1</span><div class="mist-lollipop__plot"><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node">四</button></div>
     </div>
     <hr class="mist-divider">
     <p class="mist-caption mist-muted">密集細線圖。固定 2px 線寬 —— 用 flex:1 會脹成實心色塊，違反「用線不用面」</p>
@@ -278,6 +299,242 @@
     </div>
     <div class="mist-hairbars" aria-hidden="true">
       <i style="--mist-bar: 20%"></i><i style="--mist-bar: 26%"></i><i style="--mist-bar: 22%"></i><i style="--mist-bar: 30%"></i><i style="--mist-bar: 24%"></i><i style="--mist-bar: 34%"></i><i style="--mist-bar: 28%"></i><i style="--mist-bar: 40%"></i><i style="--mist-bar: 32%"></i><i style="--mist-bar: 36%"></i><i style="--mist-bar: 44%"></i><i style="--mist-bar: 38%"></i><i style="--mist-bar: 30%"></i><i style="--mist-bar: 42%"></i><i style="--mist-bar: 34%"></i><i style="--mist-bar: 46%"></i><i style="--mist-bar: 28%"></i><i style="--mist-bar: 38%"></i>
+    </div>
+  </div>
+
+
+  <!-- ══ LineChart ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">LineChart <span class="mist-caption mist-muted">★ 招牌：選中的 X 標籤有 pill 底，垂直線貫穿下來接到它</span></h2>
+    <p class="mist-caption mist-muted">平滑曲線 + 虛線格線。滑過看 hover 的指示線、圓點與白卡 tooltip。<br>
+      曲線的 <span class="mist-body-strong">d</span> 直接寫在 markup 裡，所以**關掉 JS 也看得到線**；
+      JS 只負責 hover。沒有 <span class="mist-body-strong">d</span> 時它會從 <span class="mist-body-strong">data-values</span> 自動算。</p>
+
+    <div class="mist-linechart" data-mist-linechart data-min="0" data-max="100"
+         data-default-index="4" data-labels="週一,週二,週三,週四,週五,週六,週日">
+      <div class="mist-linechart__body">
+        <div class="mist-linechart__yaxis">
+          <span class="mist-linechart__ytick">100</span>
+          <span class="mist-linechart__ytick">75</span>
+          <span class="mist-linechart__ytick">50</span>
+          <span class="mist-linechart__ytick">25</span>
+          <span class="mist-linechart__ytick">0</span>
+        </div>
+        <div class="mist-linechart__plot">
+          <svg class="mist-linechart__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <g class="mist-linechart__grid">
+              <line x1="0" y1="0" x2="100" y2="0"></line>
+              <line x1="0" y1="25" x2="100" y2="25"></line>
+              <line x1="0" y1="50" x2="100" y2="50"></line>
+              <line x1="0" y1="75" x2="100" y2="75"></line>
+              <line x1="0" y1="100" x2="100" y2="100"></line>
+            </g>
+            <path class="mist-linechart__line mist-linechart__line--secondary" data-values="18,22,20,28,26,31,29"
+                  d="M0.00,82.00C2.78,81.33 11.11,78.33 16.67,78.00C22.22,77.67 27.78,81.00 33.33,80.00C38.89,79.00 44.44,73.00 50.00,72.00C55.56,71.00 61.11,74.50 66.67,74.00C72.22,73.50 77.78,69.50 83.33,69.00C88.89,68.50 97.22,70.67 100.00,71.00"></path>
+            <path class="mist-linechart__line mist-linechart__line--primary"   data-values="34,41,38,52,68,61,74"
+                  d="M0.00,66.00C2.78,64.83 11.11,59.67 16.67,59.00C22.22,58.33 27.78,63.83 33.33,62.00C38.89,60.17 44.44,53.00 50.00,48.00C55.56,43.00 61.11,33.50 66.67,32.00C72.22,30.50 77.78,40.00 83.33,39.00C88.89,38.00 97.22,28.17 100.00,26.00"></path>
+            <line class="mist-linechart__cursor" y1="0" y2="100"></line>
+            <circle class="mist-linechart__marker mist-linechart__marker--secondary"></circle>
+            <circle class="mist-linechart__marker mist-linechart__marker--primary"></circle>
+          </svg>
+          <div class="mist-linechart__tip">
+            <span class="mist-linechart__tip-title">週五</span>
+            <span class="mist-linechart__tip-value">68</span>
+          </div>
+        </div>
+      </div>
+      <div class="mist-linechart__xaxis">
+        <span class="mist-linechart__xtick"><span>週一</span></span>
+        <span class="mist-linechart__xtick"><span>週二</span></span>
+        <span class="mist-linechart__xtick"><span>週三</span></span>
+        <span class="mist-linechart__xtick"><span>週四</span></span>
+        <span class="mist-linechart__xtick is-selected"><span>週五</span></span>
+        <span class="mist-linechart__xtick"><span>週六</span></span>
+        <span class="mist-linechart__xtick"><span>週日</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Funnel ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Funnel <span class="mist-caption mist-muted">階段轉換</span></h2>
+    <p class="mist-caption mist-muted">條寬固定 8px。每個階段的第一根加 <span class="mist-body-strong">.is-marked</span> 當標記。</p>
+    <div class="mist-funnel">
+      <div class="mist-funnel__track">
+        <i class="mist-funnel__bar is-marked" style="--mist-bar: 100%"></i><i class="mist-funnel__bar" style="--mist-bar: 96%"></i><i class="mist-funnel__bar" style="--mist-bar: 92%"></i><i class="mist-funnel__bar" style="--mist-bar: 88%"></i><i class="mist-funnel__bar" style="--mist-bar: 84%"></i><i class="mist-funnel__bar" style="--mist-bar: 78%"></i><i class="mist-funnel__bar" style="--mist-bar: 70%"></i>
+        <i class="mist-funnel__bar is-marked" style="--mist-bar: 62%"></i><i class="mist-funnel__bar" style="--mist-bar: 58%"></i><i class="mist-funnel__bar" style="--mist-bar: 55%"></i><i class="mist-funnel__bar" style="--mist-bar: 52%"></i><i class="mist-funnel__bar" style="--mist-bar: 48%"></i><i class="mist-funnel__bar" style="--mist-bar: 44%"></i><i class="mist-funnel__bar" style="--mist-bar: 38%"></i>
+        <i class="mist-funnel__bar is-marked" style="--mist-bar: 32%"></i><i class="mist-funnel__bar" style="--mist-bar: 30%"></i><i class="mist-funnel__bar" style="--mist-bar: 28%"></i><i class="mist-funnel__bar" style="--mist-bar: 26%"></i><i class="mist-funnel__bar" style="--mist-bar: 24%"></i><i class="mist-funnel__bar" style="--mist-bar: 22%"></i><i class="mist-funnel__bar" style="--mist-bar: 20%"></i>
+        <i class="mist-funnel__bar is-marked" style="--mist-bar: 18%"></i><i class="mist-funnel__bar" style="--mist-bar: 17%"></i><i class="mist-funnel__bar" style="--mist-bar: 16%"></i><i class="mist-funnel__bar" style="--mist-bar: 15%"></i><i class="mist-funnel__bar" style="--mist-bar: 14%"></i><i class="mist-funnel__bar" style="--mist-bar: 13%"></i><i class="mist-funnel__bar" style="--mist-bar: 12%"></i>
+      </div>
+      <div class="mist-funnel__stages">
+        <div class="mist-funnel__stage"><span class="mist-funnel__pct">100%</span><span class="mist-funnel__name">完成問卷</span><span class="mist-funnel__count">1,500</span></div>
+        <div class="mist-funnel__stage"><span class="mist-funnel__pct">62%</span><span class="mist-funnel__name">產出規劃表</span><span class="mist-funnel__count">930</span></div>
+        <div class="mist-funnel__stage"><span class="mist-funnel__pct">32%</span><span class="mist-funnel__name">同意並開始</span><span class="mist-funnel__count">480</span></div>
+        <div class="mist-funnel__stage"><span class="mist-funnel__pct">18%</span><span class="mist-funnel__name">完成第一階段</span><span class="mist-funnel__count">270</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Donut ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Donut <span class="mist-caption mist-muted">部分佔整體 · ★ 選中的環段後方有高亮帶</span></h2>
+    <p class="mist-caption mist-muted">用描邊畫環，線寬固定 8px。資料介面：<span class="mist-body-strong">--mist-arc</span>（佔比）、<span class="mist-body-strong">--mist-arc-start</span>（起點）。</p>
+    <div class="mist-split">
+      <div class="mist-donut">
+        <div class="mist-donut__figure">
+          <svg class="mist-donut__svg" viewBox="0 0 240 240" aria-hidden="true">
+            <circle class="mist-donut__track" cx="120" cy="120" r="104" pathLength="100"></circle>
+            <circle class="mist-donut__band is-selected" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 16; --mist-arc-start: 62"></circle>
+            <circle class="mist-donut__seg mist-donut__seg--mark" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 61; --mist-arc-start: 0"></circle>
+            <circle class="mist-donut__seg mist-donut__seg--accent is-selected" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 15; --mist-arc-start: 62"></circle>
+            <circle class="mist-donut__seg mist-donut__seg--alt" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 13; --mist-arc-start: 78"></circle>
+            <circle class="mist-donut__seg mist-donut__seg--muted" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 7; --mist-arc-start: 92"></circle>
+          </svg>
+          <div class="mist-donut__center">
+            <span class="mist-donut__value">16%</span>
+            <span class="mist-donut__label">未分類</span>
+          </div>
+        </div>
+        <div class="mist-donut__legend">
+          <button class="mist-donut__item mist-donut__item--mark"><span class="mist-donut__dot"></span><span class="mist-donut__name">工作與會議</span><span class="mist-donut__pct">62%</span></button>
+          <button class="mist-donut__item mist-donut__item--accent is-selected"><span class="mist-donut__dot"></span><span class="mist-donut__name">未分類</span><span class="mist-donut__pct">16%</span></button>
+          <button class="mist-donut__item mist-donut__item--alt"><span class="mist-donut__dot"></span><span class="mist-donut__name">社交</span><span class="mist-donut__pct">14%</span></button>
+          <button class="mist-donut__item mist-donut__item--muted"><span class="mist-donut__dot"></span><span class="mist-donut__name">其他</span><span class="mist-donut__pct">8%</span></button>
+        </div>
+      </div>
+
+      <div class="mist-stack">
+        <p class="mist-caption mist-muted">半圓儀表 <span class="mist-body-strong">.mist-donut--half</span>。滿值是 50，所以資料要傳「百分比的一半」。</p>
+        <div class="mist-donut mist-donut--half">
+          <div class="mist-donut__figure">
+            <svg class="mist-donut__svg" viewBox="0 0 240 240" aria-hidden="true">
+              <circle class="mist-donut__track" cx="120" cy="120" r="104" pathLength="100"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--mark" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 39; --mist-arc-start: 0"></circle>
+            </svg>
+            <div class="mist-donut__center">
+              <span class="mist-donut__value">3,271</span>
+              <span class="mist-donut__label">已完成任務</span>
+            </div>
+          </div>
+        </div>
+        <hr class="mist-divider">
+        <div class="mist-row mist-row--between">
+          <span class="mist-body mist-muted">總任務數</span>
+          <span class="mist-body-strong">4,182</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Disclosure ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Disclosure <span class="mist-caption mist-muted">收合狀態下仍然分得出類別的清單</span></h2>
+    <p class="mist-caption mist-muted">左側狀態色條可選。展開靠 aria-expanded + panel 的 hidden，不是 class。</p>
+    <div class="mist-disclosure">
+      <div class="mist-disclosure__item mist-disclosure__item--active">
+        <button class="mist-disclosure__summary" type="button" aria-expanded="true">
+          <svg class="mist-disclosure__marker" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="mist-disclosure__body">
+            <span class="mist-disclosure__label">展開中的列</span>
+            <span class="mist-disclosure__meta">副標放分類與名額這種一眼要看到的資訊</span>
+          </span>
+          <span class="mist-disclosure__aside"><span class="mist-badge mist-badge--active">進行中</span></span>
+        </button>
+        <div class="mist-disclosure__panel">
+          <p class="mist-body">展開後的內容。panel 是垂直堆疊，直接放 inset、表格、按鈕都可以。</p>
+          <div class="mist-inset"><p class="mist-caption mist-muted">卡內填色區塊放在這裡是安全的</p></div>
+        </div>
+      </div>
+      <div class="mist-disclosure__item mist-disclosure__item--attention">
+        <button class="mist-disclosure__summary" type="button" aria-expanded="false">
+          <svg class="mist-disclosure__marker" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="mist-disclosure__body">
+            <span class="mist-disclosure__label">收合中的列 · 需注意</span>
+            <span class="mist-disclosure__meta">色條是橘紅</span>
+          </span>
+          <span class="mist-disclosure__aside"><span class="mist-badge mist-badge--attention">缺四要素</span></span>
+        </button>
+        <div class="mist-disclosure__panel" hidden>
+          <p class="mist-body">收合的內容用 hidden，不要用 display:none 的 class。</p>
+        </div>
+      </div>
+      <div class="mist-disclosure__item">
+        <button class="mist-disclosure__summary" type="button" aria-expanded="false">
+          <svg class="mist-disclosure__marker" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="mist-disclosure__body">
+            <span class="mist-disclosure__label">沒有色條的列</span>
+          </span>
+        </button>
+        <div class="mist-disclosure__panel" hidden><p class="mist-body">不加 --done / --active / --attention / --idle 就沒有色條。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Segmented ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Segmented <span class="mist-caption mist-muted">少量互斥選項</span></h2>
+    <p class="mist-caption mist-muted">選中靠 aria-pressed。超過四個選項、或選項字很長時改用 OptionCard。</p>
+    <div class="mist-stack--sm mist-stack">
+      <span class="mist-segmented__label">可用時數</span>
+      <div class="mist-segmented" role="group" aria-label="可用時數">
+        <button class="mist-segmented__item" type="button">30 分</button>
+        <button class="mist-segmented__item" type="button" aria-pressed="true">2 小時</button>
+        <button class="mist-segmented__item" type="button">4 小時</button>
+      </div>
+      <span class="mist-segmented__label">滿寬版 · 含 disabled</span>
+      <div class="mist-segmented mist-segmented--block" role="group" aria-label="範例">
+        <button class="mist-segmented__item" type="button" aria-pressed="true">對</button>
+        <button class="mist-segmented__item" type="button">不對</button>
+        <button class="mist-segmented__item" type="button" disabled>不可選</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Slider ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Slider</h2>
+    <p class="mist-caption mist-muted">值由頁面自己顯示在 __value，元件不代勞。</p>
+    <div class="mist-slider">
+      <div class="mist-slider__head">
+        <label class="mist-slider__label" for="r1">現時吸引力</label>
+        <span class="mist-slider__value" id="r1-out">8</span>
+      </div>
+      <input class="mist-slider__input" type="range" id="r1" min="0" max="10" value="8">
+    </div>
+  </div>
+
+  <!-- ══ Table ══ -->
+  <div class="mist-card mist-card--lg">
+    <h2 class="mist-h3">Table <span class="mist-caption mist-muted">可比較的扁平資料</span></h2>
+    <p class="mist-caption mist-muted">寬表由 .mist-table-scroll 自己橫向捲。數字欄加 .mist-table__num，群組列加 .mist-table__group，狀態色條加在 tr 上。</p>
+    <div class="mist-table-scroll">
+      <table class="mist-table">
+        <thead>
+          <tr><th>分支</th><th>型別</th><th class="mist-table__num">本季行動</th><th>判定</th></tr>
+        </thead>
+        <tbody>
+          <tr class="mist-table__group"><td colspan="4">累積型 · 常設名額 2</td></tr>
+          <tr class="mist-table__row mist-table__row--attention">
+            <td>英文口說<span class="mist-table__meta">shadowing 15 分 / 口說課 1 堂</span></td>
+            <td><span class="mist-badge mist-badge--idle">累積型</span></td>
+            <td class="mist-table__num">11 次<span class="mist-table__meta">+ 12 堂</span></td>
+            <td><span class="mist-badge mist-badge--attention">原地踏步</span></td>
+          </tr>
+          <tr class="mist-table__row mist-table__row--done">
+            <td>體能<span class="mist-table__meta">健身房一次 / 60 分</span></td>
+            <td><span class="mist-badge mist-badge--idle">累積型</span></td>
+            <td class="mist-table__num">9 次</td>
+            <td><span class="mist-badge mist-badge--done">有進展</span></td>
+          </tr>
+          <tr class="mist-table__group"><td colspan="4">歸不進任何分支</td></tr>
+          <tr class="mist-table__row mist-table__row--active">
+            <td>A 公司相關往來<span class="mist-table__meta">行事曆 · 未申報</span></td>
+            <td><span class="mist-badge mist-badge--idle">未歸戶</span></td>
+            <td class="mist-table__num">12 件<span class="mist-table__meta">18.5 小時</span></td>
+            <td><span class="mist-badge mist-badge--active">可能是新方向</span></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -318,6 +575,7 @@
 </div>
 </div>
 </div>
+<script src="mist-charts.js" defer></script>
 <script>
 document.querySelectorAll('.mist-option').forEach(function (el) {
   el.addEventListener('click', function () {
@@ -337,6 +595,26 @@ document.querySelectorAll('.mist-specs').forEach(function (group) {
       });
     });
   });
+});
+document.querySelectorAll('.mist-disclosure__summary').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', open ? 'false' : 'true');
+    var panel = b.nextElementSibling;
+    if (panel) panel.hidden = open;
+  });
+});
+document.querySelectorAll('.mist-segmented').forEach(function (g) {
+  g.addEventListener('click', function (e) {
+    var b = e.target.closest('.mist-segmented__item');
+    if (!b || b.disabled) return;
+    g.querySelectorAll('.mist-segmented__item').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    b.setAttribute('aria-pressed', 'true');
+  });
+});
+document.querySelectorAll('.mist-slider__input').forEach(function (r) {
+  var out = document.getElementById(r.id + '-out');
+  if (out) r.addEventListener('input', function () { out.textContent = r.value; });
 });
 document.querySelectorAll('.mist-task').forEach(function (t) {
   t.addEventListener('click', function () { t.classList.toggle('is-done'); });

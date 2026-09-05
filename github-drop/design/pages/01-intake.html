@@ -22,11 +22,11 @@
     <div class="mist-app">
 
       <nav class="mist-nav mist-row--between" aria-label="流程">
-        <a class="mist-nav__brand" href="#"><span class="mist-nav__mark"></span>個人教練</a>
+        <a class="mist-nav__brand" href="01-intake.html"><span class="mist-nav__mark"></span>個人教練</a>
         <div class="mist-nav__links">
           <a class="mist-nav__link is-active" href="#">站 1 · 上傳與方向</a>
-          <a class="mist-nav__link" href="https://claude.ai/code/artifact/04cea755-9563-4896-9f4c-4796edcbf34d">站 2 · 目標樹草案</a>
-          <a class="mist-nav__link" href="https://claude.ai/code/artifact/d9c6f5b0-b21a-4598-b3d7-55ff1a7abbb9">站 3 · 季度對帳</a>
+          <a class="mist-nav__link" href="02-plan.html">站 2 · 目標樹草案</a>
+          <a class="mist-nav__link" href="03-ledger.html">站 3 · 季度對帳</a>
         </div>
       </nav>
 
@@ -74,26 +74,53 @@
         <p class="mist-body mist-muted">時間與金錢合起來是最誠實的優先順序證明。<span class="mist-body-strong">一個人聲稱重視什麼，和他把資源放在哪，落差本身就是診斷。</span>只給行事曆與履歷已經夠開始，帳單可以稍後再補。</p>
       </div>
 
-      <!-- ══════════ 02 讀取 ══════════ -->
+      <!-- ══════════ 02 歸戶 ══════════ -->
       <div class="mist-card mist-card--lg">
-        <p class="mist-label mist-subtle">02 · 讀取 READ</p>
-        <h2 class="mist-h2">你還沒回答任何問題，但資料已經說了不少</h2>
-        <p class="mist-body mist-muted">近 26 週的時間分配。這裡沒有評價，只是把帳攤開。</p>
+        <div class="mist-row mist-row--between">
+          <p class="mist-label mist-subtle">02 · 歸戶 LEDGER</p>
+          <span class="mist-badge mist-badge--done">已確認 2026-09-05</span>
+        </div>
+        <h2 class="mist-h2">歸戶對完了，這是你確認過的現況</h2>
+        <p class="mist-body mist-muted">近 26 週、448 個行程已經歸戶，模糊的部分問過你、你也確認過——所以下面這些不是系統的猜測，是<span class="mist-body-strong">你簽過名的帳</span>。這裡沒有評價，只是把帳攤開。</p>
 
         <div class="mist-stats">
           <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-mark"><span class="mist-stat__value">26</span><span class="mist-stat__label">週的行為被讀進來</span></div>
           <div class="mist-stat mist-stat--sm mist-stat--rule"><span class="mist-stat__value">448</span><span class="mist-stat__label">個行程已歸戶</span></div>
-          <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-accent"><span class="mist-stat__value">16%</span><span class="mist-stat__label">歸不進任何類別</span></div>
+          <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-accent"><span class="mist-stat__value">16%</span><span class="mist-stat__label">確認歸不進任何類別</span></div>
         </div>
 
-        <div class="mist-lollipop" id="mix">
-          <div class="mist-lollipop__col" style="--mist-stem: 100%"><span class="mist-lollipop__tip">62%</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node" type="button">工作</button></div>
-          <div class="mist-lollipop__col is-selected" style="--mist-stem: 26%"><span class="mist-lollipop__tip">16%</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node" type="button">未分</button></div>
-          <div class="mist-lollipop__col" style="--mist-stem: 23%"><span class="mist-lollipop__tip">14%</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node" type="button">社交</button></div>
-          <div class="mist-lollipop__col" style="--mist-stem: 8%"><span class="mist-lollipop__tip">5%</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node" type="button">學習</button></div>
-          <div class="mist-lollipop__col" style="--mist-stem: 5%"><span class="mist-lollipop__tip">3%</span><div class="mist-lollipop__plot"><span class="mist-lollipop__dot"></span><i class="mist-lollipop__stem"></i></div><button class="mist-lollipop__node" type="button">運動</button></div>
+        <div class="mist-donut" id="mix">
+          <div class="mist-donut__figure">
+            <svg class="mist-donut__svg" viewBox="0 0 240 240" aria-hidden="true">
+              <circle class="mist-donut__track" cx="120" cy="120" r="104" pathLength="100"></circle>
+              <circle class="mist-donut__band is-selected" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 16; --mist-arc-start: 62"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--mark" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 61; --mist-arc-start: 0"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--accent is-selected" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 15; --mist-arc-start: 62"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--alt" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 13; --mist-arc-start: 78"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--muted" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 4; --mist-arc-start: 92"></circle>
+              <circle class="mist-donut__seg mist-donut__seg--muted" cx="120" cy="120" r="104" pathLength="100" style="--mist-arc: 2; --mist-arc-start: 97"></circle>
+            </svg>
+            <div class="mist-donut__center">
+              <span class="mist-donut__value">16%</span>
+              <span class="mist-donut__label">未分類</span>
+            </div>
+          </div>
+          <div class="mist-donut__legend">
+            <button class="mist-donut__item mist-donut__item--mark" type="button"><span class="mist-donut__dot"></span><span class="mist-donut__name">工作與會議</span><span class="mist-donut__pct">62%</span></button>
+            <button class="mist-donut__item mist-donut__item--accent is-selected" type="button"><span class="mist-donut__dot"></span><span class="mist-donut__name">未分類</span><span class="mist-donut__pct">16%</span></button>
+            <button class="mist-donut__item mist-donut__item--alt" type="button"><span class="mist-donut__dot"></span><span class="mist-donut__name">社交與一對一</span><span class="mist-donut__pct">14%</span></button>
+            <button class="mist-donut__item mist-donut__item--muted" type="button"><span class="mist-donut__dot"></span><span class="mist-donut__name">學習</span><span class="mist-donut__pct">5%</span></button>
+            <button class="mist-donut__item mist-donut__item--muted" type="button"><span class="mist-donut__dot"></span><span class="mist-donut__name">運動</span><span class="mist-donut__pct">3%</span></button>
+          </div>
         </div>
-        <p class="mist-caption mist-muted">工作與會議 62% · 未分類 16% · 社交與一對一 14% · 學習 5% · 運動 3%。點任一欄看它的佔比；預設選中的是未分類，因為那一塊是後面對帳最有價值的地方。</p>
+        <p class="mist-caption mist-muted">點圖例任一列看它的佔比。預設選中的是未分類，因為那一塊是後面對帳最有價值的地方。</p>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <p class="mist-label mist-subtle">確認的邊界</p>
+            <p class="mist-body">確認過的是<span class="mist-body-strong">歸戶結果與下面四塊的方向</span>。<span class="mist-body-strong">那 16% 沒有被強行歸戶</span>——你確認的是「它確實歸不進去」，不是「它已經有歸屬」。那 118 小時會原樣帶進季度對帳。</p>
+          </div>
+        </div>
 
         <div class="mist-inset">
           <div class="mist-stack">
@@ -119,15 +146,89 @@
             <hr class="mist-divider">
             <div class="mist-stack--sm mist-stack">
               <p class="mist-label mist-subtle">訊號</p>
-              <p class="mist-body"><span class="mist-body-strong">近 3 個月有 3 次獵頭面談</span>，分散在 3 家公司。行為在累積深度，但同時在探路——這兩件事指向不同方向。</p>
+              <p class="mist-body"><span class="mist-body-strong">近 3 個月有 3 次獵頭面談</span>，分散在 3 家公司。行為在累積深度，但同時在探路——追問時你確認這兩件事是同時成立的，不是其中一個記錯。</p>
             </div>
             <hr class="mist-divider">
             <div class="mist-stack--sm mist-stack">
               <p class="mist-label mist-subtle">未分類</p>
-              <p class="mist-body">16% 的時間（約 118 小時）歸不進任何類別。<span class="mist-body-strong">這一塊是後面對帳最有價值的地方</span>，現在先標記著。</p>
+              <p class="mist-body">16% 的時間（約 118 小時）歸不進任何類別。追問時你逐項看過，<span class="mist-body-strong">確認它不是漏記，是真的沒有歸屬</span>。</p>
             </div>
           </div>
         </div>
+
+        <hr class="mist-divider">
+
+        <p class="mist-label mist-subtle">綜合 · 四塊帳</p>
+        <h3 class="mist-h3">同一批行程，換一個切法</h3>
+        <p class="mist-body mist-muted">上面是時間落在哪個類別，這裡是那些時間餵給了生活的哪一塊。四塊的方向都經過追問、由你確認過。<span class="mist-body-strong">每一格的分數旁邊就是那一塊拿到多少時間</span>——落差自己會說話，不需要誰下評語。</p>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <h3 class="mist-h3">身體 HEALTH</h3>
+              <span class="mist-badge mist-badge--idle">時間投入 3%</span>
+            </div>
+            <div class="mist-row">
+              <p class="mist-h1">2</p>
+              <p class="mist-caption mist-subtle">/ 10</p>
+            </div>
+            <div class="mist-progress mist-progress--thin"><div class="mist-progress__bar" style="--mist-progress-value: 20%"></div></div>
+            <p class="mist-caption mist-subtle">範疇：睡眠、飲食、運動量、長期的身體不適</p>
+            <p class="mist-body">運動全部落在前 6 週，<span class="mist-body-strong">第 7 週起連續 20 週歸零</span>。追問時你確認那 20 週沒有未記錄的運動——這一格分數低不是資料太少，是資料很清楚。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <h3 class="mist-h3">產出 WORK</h3>
+              <span class="mist-badge mist-badge--idle">時間投入 62%</span>
+            </div>
+            <div class="mist-row">
+              <p class="mist-h1">6</p>
+              <p class="mist-caption mist-subtle">/ 10</p>
+            </div>
+            <div class="mist-progress mist-progress--thin"><div class="mist-progress__bar" style="--mist-progress-value: 60%"></div></div>
+            <p class="mist-caption mist-subtle">範疇：不只是有薪水的職位，是你正在產出的價值——副業、家務、社團的義務服務都算</p>
+            <p class="mist-body">投入與累積都成立：任期越來越長、履歷技能重複度高。但那 62% 大半是會議，而作品的公開痕跡是零。追問時你確認「產出」對你指的是<span class="mist-body-strong">對外可見的東西</span>，所以這一格停在 6。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <h3 class="mist-h3">娛樂 JOY</h3>
+              <span class="mist-badge mist-badge--attention">時間投入 未歸戶</span>
+            </div>
+            <div class="mist-row">
+              <p class="mist-h1">3</p>
+              <p class="mist-caption mist-subtle">/ 10</p>
+            </div>
+            <div class="mist-progress mist-progress--thin"><div class="mist-progress__bar" style="--mist-progress-value: 30%"></div></div>
+            <p class="mist-caption mist-subtle">範疇：純粹為了快樂而做的事。為了變強或賺錢而做的，不算在這一格</p>
+            <p class="mist-body">週末幾乎沒有安排，行事曆上找不到這一類。追問時你逐項看過那 118 小時，<span class="mist-body-strong">確認其中只有約 12 小時是純娛樂</span>，其餘是工作的延伸——平均每週不到半小時。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <h3 class="mist-h3">關係 LOVE</h3>
+              <span class="mist-badge mist-badge--idle">時間投入 14%</span>
+            </div>
+            <div class="mist-row">
+              <p class="mist-h1">4</p>
+              <p class="mist-caption mist-subtle">/ 10</p>
+            </div>
+            <div class="mist-progress mist-progress--thin"><div class="mist-progress__bar" style="--mist-progress-value: 40%"></div></div>
+            <p class="mist-caption mist-subtle">範疇：伴侶、家人、朋友、寵物，以及與自己的連結</p>
+            <p class="mist-body">社交與一對一佔 14%，比例不低；週四讀書會 11 週未斷，而且它有固定的一群人。但追問時你確認<span class="mist-body-strong">那 14% 裡約一半是工作協作</span>，真正歸到關係的接近 7%。</p>
+          </div>
+        </div>
+
+        <p class="mist-body mist-muted">62% 的時間換到產出 6 分；身體拿到 3%，換到 2 分。<span class="mist-body-strong">分數低的那幾格，時間也確實沒去那裡。</span>這是分配的結果，不是能力的結果。</p>
+
+        <p class="mist-body mist-muted"><span class="mist-body-strong">分數低不等於要補。</span>有人就是這個形狀，而且過得很好。要不要補、先補哪一塊，等你選完對照基準才有判準；這一段只負責把帳攤開。</p>
       </div>
 
       <!-- ══════════ 03 形狀 ══════════ -->
@@ -172,6 +273,7 @@
         <p class="mist-label mist-subtle">05 · 約束 CONSTRAINTS</p>
         <h2 class="mist-h2">三個不用有方向也答得出來的問題</h2>
         <p class="mist-body mist-muted">「你想要什麼」對沒方向的人是很難的題。但<span class="mist-body-strong">「你確定不要什麼」很好答</span>——排除法從來比選擇法容易。這三題問的都是約束與代價，不是志向。</p>
+        <p class="mist-body mist-muted">跟前面的追問不是同一批。<span class="mist-body-strong">02 段確認的是帳怎麼歸、四塊各在哪裡；這三題決定的是名額怎麼分、容量不夠時先砍誰。</span>前者是現況，後者是取捨。</p>
 
         <div class="mist-steps" id="qsteps" aria-hidden="true">
           <span class="mist-steps__step"></span><span class="mist-steps__step"></span><span class="mist-steps__step"></span>
@@ -267,7 +369,7 @@
         </div>
 
         <div class="mist-row">
-          <a class="mist-btn mist-btn--primary" href="https://claude.ai/code/artifact/04cea755-9563-4896-9f4c-4796edcbf34d">用這個假設產生目標樹草案</a>
+          <a class="mist-btn mist-btn--primary" href="02-plan.html">用這個假設產生目標樹草案</a>
           <button class="mist-btn mist-btn--ghost" type="button" id="btn-other">換一個形狀看看</button>
         </div>
         <p class="mist-caption mist-muted">假設會標記為 v0 並記錄今天的時間與來源。三個月後若行為與它持續不符，教練會主動拿出來問——不是催你執行，是問這個形狀還算不算數。</p>
@@ -515,12 +617,36 @@
     if (e.target.tagName === "TEXTAREA") refresh();
   });
 
-  /* ---------- 時間分配圖 ---------- */
-  var mix = document.getElementById("mix");
+  /* ---------- 時間分配圓餅圖 ---------- */
+  var MIX = [
+    { name: "工作與會議", pct: "62%", arc: 62, start: 0 },
+    { name: "未分類",     pct: "16%", arc: 16, start: 62 },
+    { name: "社交與一對一", pct: "14%", arc: 14, start: 78 },
+    { name: "學習",       pct: "5%",  arc: 5,  start: 92 },
+    { name: "運動",       pct: "3%",  arc: 3,  start: 97 }
+  ];
+
+  var mix   = document.getElementById("mix"),
+      band  = mix.querySelector(".mist-donut__band"),
+      segs  = [].slice.call(mix.querySelectorAll(".mist-donut__seg")),
+      items = [].slice.call(mix.querySelectorAll(".mist-donut__item")),
+      cVal  = mix.querySelector(".mist-donut__value"),
+      cLab  = mix.querySelector(".mist-donut__label");
+
+  function selectMix(i) {
+    var d = MIX[i];
+    /* band 用足額弧長；段本身少 1 做出段與段的間隙（同 reference 的做法） */
+    band.style.setProperty("--mist-arc", d.arc);
+    band.style.setProperty("--mist-arc-start", d.start);
+    segs.forEach(function (x, n) { x.classList.toggle("is-selected", n === i); });
+    items.forEach(function (x, n) { x.classList.toggle("is-selected", n === i); });
+    cVal.textContent = d.pct;
+    cLab.textContent = d.name;
+  }
+
   mix.addEventListener("click", function (e) {
-    var col = e.target.closest(".mist-lollipop__col"); if (!col) return;
-    mix.querySelectorAll(".mist-lollipop__col").forEach(function (c) { c.classList.remove("is-selected"); });
-    col.classList.add("is-selected");
+    var it = e.target.closest(".mist-donut__item"); if (!it) return;
+    selectMix(items.indexOf(it));
   });
 
   document.getElementById("btn-other").addEventListener("click", function () {

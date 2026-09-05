@@ -1,57 +1,60 @@
-# design/ — mist design system + the station-1 prototype
+# 這個專案的 UI
 
-This folder holds the **project-side copy** of the `mist` design system and the source of the
-onboarding prototype that is served from `public/prototypes/01-intake.html`.
+畫面用 **mist** 設計系統。這份是給人看的；給 Claude Code 看的規則在 `CLAUDE.md`。
 
-It is plain HTML and CSS. No build step, no dependencies, nothing to install.
+## 開始寫一個新頁面
 
-## Layout
-
-| Path | What it is | Editable |
-|---|---|---|
-| `ui/` | Design-system copy: tokens, components, specs | **No — read-only** |
-| `pages/` | Prototype pages. `01-intake.html` is the live one | Yes |
-| `local-overrides.css` | Pressure valve. The only file in here that may declare styles | Yes, but it is tracked as debt |
-| `scripts/`, `check.sh`, `serve.py` | Preview and lint tooling | No |
-
-## Four rules
-
-1. **`ui/` is overwritten wholesale** whenever the design system updates. Never edit it — your
-   changes would be silently lost on the next update.
-2. **Pages carry classes only.** No `<style>` blocks, no `style="color: …"`, no hard-coded colors
-   or sizes. The one exception is passing data into a component through the three documented
-   custom properties (`--mist-progress-value`, `--mist-stem`, `--mist-bar`).
-3. **Missing a component? Do not write one here.** Check `ui/COMPONENTS.md` first; if it is really
-   missing, it gets added to the design system upstream and `ui/` is re-copied.
-4. **Out of time?** Put it in `local-overrides.css` — the only file here allowed to declare styles.
-   `./check.sh` will list every rule in it as outstanding debt.
-
-## Working on it
+**一、複製範本**
 
 ```bash
-# preview
-python3 serve.py . 8747      # then open http://localhost:8747/pages/01-intake.html
-
-# component reference, every state of every component
-#   http://localhost:8747/ui/reference.html
-
-# lint: hard-coded colors and sizes, inline styles, page-level style rules,
-#       references to tokens that do not exist, unreturned overrides
-./check.sh
-
-# regenerate the single file that ships in public/
-python3 scripts/inline_page.py pages/01-intake.html ../public/prototypes/01-intake.html --standalone
+cp pages/_template.html pages/你的頁面名稱.html
 ```
 
-`public/prototypes/01-intake.html` is **generated output** — it inlines `ui/*.css` into one
-self-contained document so it can be served without any asset paths. Do not hand-edit it;
-edit `pages/01-intake.html` and regenerate.
+不要從空白檔案開始 —— 範本裡已經有正確的 CSS 引入順序、表面分層、限寬容器。
 
-## Two things to know before you review this
+**二、先看有哪些元件可用**
 
-- **The prototype content is in Traditional Chinese.** It is the hackathon demo script, presented
-  in Chinese, so the copy was written that way. This conflicts with the repo's English-only
-  convention — flagging it rather than quietly breaking the rule. Say the word and it gets
-  translated or moved out.
-- **The top navigation links to stations 2 and 3 point at published Claude artifacts**, not at
-  anything in this repo. They are the other two screens of the same demo flow.
+開 `ui/COMPONENTS.md`（一頁，有清單和一行用法）。想看實際長相就開設計系統裡的 `reference.html`。
+
+**三、改內容**
+
+只放 class，不要寫樣式。範本裡的註解標了「從這裡開始寫你的內容」。
+
+**四、看效果**
+
+```bash
+python3 serve.py . 8747
+```
+
+然後開 http://localhost:8747/pages/你的頁面名稱.html
+
+**五、交出去前跑檢查**
+
+```bash
+./check.sh
+```
+
+## 資料夾裡有什麼
+
+| 路徑 | 是什麼 | 可以改嗎 |
+|---|---|---|
+| `ui/` | 設計系統複製過來的 token、元件、規格 | ❌ **唯讀** |
+| `pages/` | 你的頁面 | ✅ |
+| `local-overrides.css` | 洩壓閥。真的來不及才用 | ✅ 但會被列為債務 |
+| `CLAUDE.md` | 給 Claude Code 的規則 | ✅ 專案說明部分 |
+| `check.sh` | 檢查有沒有違規 | ❌ |
+
+## 設計系統更新了怎麼辦
+
+把設計系統的 `styles/mist/css/*.css` 和兩份 `.md` 重新複製到 `ui/` 覆蓋掉就好。
+
+**因為 `ui/` 從來沒被改過，覆蓋永遠是安全的** —— 這就是那條「唯讀」規則存在的唯一理由。
+
+## 缺元件怎麼辦
+
+1. 先確認 `ui/COMPONENTS.md` 真的沒有
+2. 判斷是「缺元件」還是「缺變體」（能不能用現有元件多加一個狀態表達完？）
+3. **回設計系統裡做**，不要在這個專案裡做
+4. 做完重新複製 `ui/` 過來
+
+在專案裡自己寫的話，專案會動，但設計系統沒有進步 —— 下個專案還要再寫一次，而且兩次會長得不一樣。

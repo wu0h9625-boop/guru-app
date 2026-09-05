@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>季度對帳</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&family=Noto+Sans+TC:wght@400;500&display=swap">
+
+<link rel="stylesheet" href="../ui/mist.tokens.css">
+<link rel="stylesheet" href="../ui/components.css">
+<link rel="stylesheet" href="../local-overrides.css">
+</head>
+
+<body class="mist">
+<div class="mist-page">
+  <div class="mist-shell">
+    <div class="mist-app">
+
+      <nav class="mist-nav mist-row--between" aria-label="流程">
+        <a class="mist-nav__brand" href="01-intake.html"><span class="mist-nav__mark"></span>個人教練</a>
+        <div class="mist-nav__links">
+          <a class="mist-nav__link" href="01-intake.html">站 1 · 上傳與方向</a>
+          <a class="mist-nav__link" href="02-plan.html">站 2 · 目標樹草案</a>
+          <a class="mist-nav__link is-active" href="03-ledger.html">站 3 · 季度對帳</a>
+        </div>
+      </nav>
+
+      <!-- ══════════ masthead ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">體測報告 · 第 3 季 / 2026</p>
+        <h1 class="mist-h1">季度對帳</h1>
+        <p class="mist-body mist-muted">教練把這一季的痕跡歸戶到目標樹各分支之下，算出進展、空白與歸不進去的投入，據此開下一季處方。使用者本季未做任何紀錄。</p>
+
+        <div class="mist-stats">
+          <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-mark"><span class="mist-stat__value">1,284</span><span class="mist-stat__label">筆痕跡 · 07/01–09/04</span></div>
+          <div class="mist-stat mist-stat--sm mist-stat--rule"><span class="mist-stat__value">91.2%</span><span class="mist-stat__label">自動歸戶率</span></div>
+          <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-accent"><span class="mist-stat__value">26 天</span><span class="mist-stat__label">季界倒數 · 樂觀係數冷啟動中</span></div>
+        </div>
+      </div>
+
+      <!-- ══════════ 01 對帳 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">01 · 對帳 RECONCILE</p>
+        <h2 class="mist-h2">行動歸戶結果</h2>
+        <p class="mist-body mist-muted">來源：行事曆、信用卡帳單、Figma 檔案修改、WorkPlus、AI 對話紀錄。累積型看能力重測，專案型看完成度——出席率不計入進展。</p>
+
+        <div class="mist-table-scroll">
+          <table class="mist-table">
+            <thead>
+              <tr>
+                <th>分支</th>
+                <th>型別</th>
+                <th class="mist-table__num">本季行動</th>
+                <th>效果重測</th>
+                <th>錨點</th>
+                <th>判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="mist-table__group"><td colspan="6">累積型 · 常設名額 2</td></tr>
+
+              <tr class="mist-table__row mist-table__row--attention">
+                <td>英文口說<span class="mist-table__meta">shadowing 15 分 / 口說課 1 堂</span></td>
+                <td><span class="mist-badge mist-badge--idle">累積型</span></td>
+                <td class="mist-table__num">11 次<span class="mist-table__meta">+ 12 堂</span></td>
+                <td class="mist-table__num">持平<span class="mist-table__meta">基準 → Q3</span></td>
+                <td><span class="mist-badge mist-badge--idle">無外部對象</span></td>
+                <td>
+                  <span class="mist-badge mist-badge--done">出席 ✓</span>
+                  <span class="mist-badge mist-badge--attention">效果 ✗</span>
+                  <span class="mist-table__meta">原地踏步</span>
+                </td>
+              </tr>
+
+              <tr class="mist-table__row mist-table__row--done">
+                <td>體能<span class="mist-table__meta">健身房一次 / 60 分</span></td>
+                <td><span class="mist-badge mist-badge--idle">累積型</span><span class="mist-table__meta">名額未定</span></td>
+                <td class="mist-table__num">9 次</td>
+                <td class="mist-table__num">55 → 62 kg<span class="mist-table__meta">深蹲 1RM</span></td>
+                <td><span class="mist-badge mist-badge--done">教練約定</span></td>
+                <td>
+                  <span class="mist-badge mist-badge--done">出席 ✓</span>
+                  <span class="mist-badge mist-badge--done">效果 ✓</span>
+                  <span class="mist-table__meta">有進展</span>
+                </td>
+              </tr>
+
+              <tr class="mist-table__group"><td colspan="6">專案型 · 輪替名額 1–2</td></tr>
+
+              <tr class="mist-table__row mist-table__row--attention">
+                <td>HCI 作品集<span class="mist-table__meta">一夜一案 / 180 分 · 高耗能</span></td>
+                <td><span class="mist-badge mist-badge--idle">專案型</span></td>
+                <td class="mist-table__num">3 次<span class="mist-table__meta">皆在 7 月</span></td>
+                <td class="mist-table__num">完成度 15%<span class="mist-table__meta">里程碑 60%</span></td>
+                <td><span class="mist-badge mist-badge--attention">缺口</span></td>
+                <td>
+                  <span class="mist-badge mist-badge--attention">落後 · 45pt</span>
+                  <span class="mist-table__meta">8 週零動作</span>
+                </td>
+              </tr>
+
+              <tr class="mist-table__row mist-table__row--done">
+                <td>職涯｜0-to-1 專案主導<span class="mist-table__meta">工作內既有結構</span></td>
+                <td><span class="mist-badge mist-badge--idle">專案型</span></td>
+                <td class="mist-table__num">142 件</td>
+                <td class="mist-table__num">完成度 78%<span class="mist-table__meta">里程碑 65%</span></td>
+                <td><span class="mist-badge mist-badge--done">真實 deadline</span></td>
+                <td><span class="mist-badge mist-badge--done">超前 · 13pt</span></td>
+              </tr>
+
+              <tr class="mist-table__group"><td colspan="6">年度分支 · 本季未取得名額</td></tr>
+
+              <tr class="mist-table__row mist-table__row--attention">
+                <td>健康<span class="mist-table__meta">未定義單位動作</span></td>
+                <td><span class="mist-badge mist-badge--idle">未分型</span></td>
+                <td class="mist-table__num">0</td>
+                <td class="mist-table__num">無基準線</td>
+                <td><span class="mist-badge mist-badge--attention">缺口</span></td>
+                <td>
+                  <span class="mist-badge mist-badge--attention">連續 3 季零行動</span>
+                  <span class="mist-table__meta">觸發條件命中</span>
+                </td>
+              </tr>
+
+              <tr class="mist-table__group"><td colspan="6">歸不進任何分支 · 隱形投入</td></tr>
+
+              <tr class="mist-table__row mist-table__row--active">
+                <td>A 公司相關往來<span class="mist-table__meta">行事曆 · 未申報於任何分支</span></td>
+                <td><span class="mist-badge mist-badge--idle">未歸戶</span></td>
+                <td class="mist-table__num">12 件<span class="mist-table__meta">18.5 小時</span></td>
+                <td class="mist-table__num">—</td>
+                <td>—</td>
+                <td><span class="mist-badge mist-badge--active">可能是未承認的新方向</span></td>
+              </tr>
+
+              <tr class="mist-table__row mist-table__row--active">
+                <td>線上課程購買<span class="mist-table__meta">帳單 · 3 筆，其中 2 門零開課紀錄</span></td>
+                <td><span class="mist-badge mist-badge--idle">未歸戶</span></td>
+                <td class="mist-table__num">NT$ 12,400</td>
+                <td class="mist-table__num">—</td>
+                <td>—</td>
+                <td><span class="mist-badge mist-badge--active">代理指標警訊</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mist-caption mist-muted"><span class="mist-body-strong">歸戶假設：</span>關鍵字 + 分支對照表，跨分支者歸主分支並標記。113 筆（8.8%）待人工判定。<br><span class="mist-body-strong">已知盲區：</span>不花錢又不進系統的活動無痕——睡眠、自主訓練、獨處。這些只在對帳問答中重建。</p>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-label mist-subtle">效果假設 · 英文口說</span>
+              <span class="mist-badge mist-badge--attention">反證條件 1 / 2</span>
+            </div>
+            <div class="mist-stack--sm mist-stack"><span class="mist-label mist-subtle">教練起草 · 使用者確認（2026-06-28）</span><span class="mist-body">每週一堂口說課 + 每週三次 shadowing，一年內能在英語會議主持討論。</span></div>
+            <hr class="mist-divider">
+            <div class="mist-stack--sm mist-stack"><span class="mist-label mist-subtle">反證條件（使用者自訂）</span><span class="mist-body">連續兩季重測錄音無可辨差異，即視為此行動組合無效。</span></div>
+            <hr class="mist-divider">
+            <p class="mist-body">基準線與 Q3 重測錄音無可辨差異 · 已達成反證條件 1 / 2。<span class="mist-body-strong">系統不判斷「行動該不該做」，只回報假設是否還站得住。</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ 02 診斷 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">02 · 診斷 DIAGNOSE</p>
+        <h2 class="mist-h2">本季四項判準</h2>
+        <p class="mist-body mist-muted">前三項回溯，第四項前瞻——錨點缺口是唯一能在事情發生前給出警告的判準。</p>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-label mist-subtle">D-1</span>
+              <span class="mist-badge mist-badge--attention">高</span>
+            </div>
+            <p class="mist-body-strong">落後：HCI 作品集</p>
+            <p class="mist-body mist-muted">完成度 15%，Q3 里程碑要求 60%。7 月動了三次後停住，8 週零動作。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-label mist-subtle">D-2</span>
+              <span class="mist-badge mist-badge--attention">高</span>
+            </div>
+            <p class="mist-body-strong">失衡：健康連續三季零行動</p>
+            <p class="mist-body mist-muted">命中觸發條件「同一分支連續兩季零進展」。上層目標提前挑戰已排入本次對帳議程——不是催你去做，是問這個目標還算不算數。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-label mist-subtle">D-3</span>
+              <span class="mist-badge mist-badge--active">中</span>
+            </div>
+            <p class="mist-body-strong">錨點缺口：HCI 作品集、健康</p>
+            <p class="mist-body mist-muted">兩個分支皆無外部對象可綁。依錨點缺口判準，這是下一季最可能被拖的兩格。</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-label mist-subtle">D-4</span>
+              <span class="mist-badge mist-badge--idle">停用</span>
+            </div>
+            <p class="mist-body-strong mist-muted">限制因素：資料不足</p>
+            <p class="mist-body mist-subtle">判斷「是不夠努力，還是能量被別處吸走」需要 2–3 季縱向資料。本季為第一季，此判準尚未可用。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ 03 處方 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">03 · 處方 PRESCRIBE</p>
+        <h2 class="mist-h2">下一季：裝錨，不加油</h2>
+        <p class="mist-body mist-muted">處方的形式是一次性動作，做完就自動運轉。本季只為兩個分支裝錨——同時綁太多會全部壓在一起，反而全數失效。</p>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body-strong">HCI 作品集</span>
+              <span class="mist-badge mist-badge--attention">錨點缺口 · 優先</span>
+            </div>
+            <p class="mist-body mist-muted">約兩位 reviewer，訂 11/15 交件日並先寄出邀約。錨點成立後不得自行往後拉。</p>
+            <p class="mist-caption mist-subtle">一次性動作 · 約 40 分鐘 · 之後自動運轉</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body-strong">健康</span>
+              <span class="mist-badge mist-badge--active">先定義，再裝錨</span>
+            </div>
+            <p class="mist-body mist-muted">目標樹上沒有單位動作與基準線，因此無法排程也無法判斷。本季先產出四要素草稿由使用者刪減，不排任何量。</p>
+            <p class="mist-caption mist-subtle">一次性動作 · 教練起草 · 使用者確認</p>
+          </div>
+        </div>
+
+        <div class="mist-inset">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body-strong">英文口說</span>
+              <span class="mist-badge mist-badge--idle">弱錨</span>
+            </div>
+            <p class="mist-body mist-muted">無外部對象可綁，只能退回較弱形式：下次對帳時被拿出來問，並針對「量不夠 / 方法錯 / 目標不需要這個行動」三者做一次判定。</p>
+            <p class="mist-caption mist-subtle">記入下次對帳議程</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ 04 調度 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">04 · 調度 DISPATCH</p>
+        <h2 class="mist-h2">空檔調度</h2>
+        <p class="mist-body mist-muted">使用者發起，零紀錄要求。判斷依據是時間流與金錢流，不是感覺——所以它可以被算出來。</p>
+
+        <div class="mist-row mist-row--between">
+          <span class="mist-label mist-subtle">輸入</span>
+          <span class="mist-caption mist-muted" id="cash-state">金錢流 · 近 90 天結餘 +NT$ 48,200</span>
+        </div>
+
+        <div class="mist-stack--sm mist-stack">
+          <span class="mist-segmented__label">可用時數</span>
+          <div class="mist-segmented mist-segmented--block" id="seg-hours" role="group" aria-label="可用時數">
+            <button class="mist-segmented__item" type="button" data-v="0.5">30 分</button>
+            <button class="mist-segmented__item" type="button" data-v="2" aria-pressed="true">2 小時</button>
+            <button class="mist-segmented__item" type="button" data-v="4">4 小時</button>
+          </div>
+          <span class="mist-segmented__label">能量狀態</span>
+          <div class="mist-segmented mist-segmented--block" id="seg-energy" role="group" aria-label="能量狀態">
+            <button class="mist-segmented__item" type="button" data-v="low">低</button>
+            <button class="mist-segmented__item" type="button" data-v="mid" aria-pressed="true">中</button>
+            <button class="mist-segmented__item" type="button" data-v="high">高</button>
+          </div>
+          <span class="mist-segmented__label">金錢流</span>
+          <div class="mist-segmented mist-segmented--block" id="seg-cash" role="group" aria-label="金錢流">
+            <button class="mist-segmented__item" type="button" data-v="ok" aria-pressed="true">健康</button>
+            <button class="mist-segmented__item" type="button" data-v="tight">緊</button>
+          </div>
+        </div>
+
+        <div class="mist-inset" aria-live="polite">
+          <div class="mist-stack--sm mist-stack">
+            <span class="mist-label mist-subtle">建議</span>
+            <p class="mist-h3" id="ans-main">HCI 作品集</p>
+            <p class="mist-caption mist-muted" id="ans-unit">一夜一案 · 180 分 · 高耗能</p>
+            <div class="mist-stack--sm mist-stack" id="ans-why"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══════════ 05 週檢查 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">05 · 週檢查 VERIFY</p>
+        <h2 class="mist-h2">本週校對</h2>
+        <p class="mist-body mist-muted">不問「這週做了什麼」，那是紀錄。教練拿痕跡問，使用者只確認或補一句——成本約兩分鐘。</p>
+
+        <div class="mist-inset" id="check">
+          <div class="mist-stack--sm mist-stack">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body mist-grow">我看到你 Figma 動了 3 次，最後一次是 8/29，對嗎</span>
+              <span class="mist-segmented" role="group" aria-label="確認">
+                <button class="mist-segmented__item" type="button" aria-pressed="true">對</button>
+                <button class="mist-segmented__item" type="button">不對</button>
+              </span>
+            </div>
+            <hr class="mist-divider">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body mist-grow">你上了 1 堂口說課，shadowing 沒有紀錄，對嗎</span>
+              <span class="mist-segmented" role="group" aria-label="確認">
+                <button class="mist-segmented__item" type="button" aria-pressed="true">對</button>
+                <button class="mist-segmented__item" type="button">不對</button>
+              </span>
+            </div>
+            <hr class="mist-divider">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body mist-grow">作品集本週零動作，對嗎</span>
+              <span class="mist-segmented" role="group" aria-label="確認">
+                <button class="mist-segmented__item" type="button" aria-pressed="true">對</button>
+                <button class="mist-segmented__item" type="button">不對</button>
+              </span>
+            </div>
+            <hr class="mist-divider">
+            <div class="mist-row mist-row--between">
+              <span class="mist-body mist-grow">週三晚上那 2.5 小時空檔歸不進任何分支，對嗎</span>
+              <span class="mist-segmented" role="group" aria-label="確認">
+                <button class="mist-segmented__item" type="button">對</button>
+                <button class="mist-segmented__item" type="button" aria-pressed="true">不對</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mist-row mist-row--between">
+          <p class="mist-body mist-muted mist-grow">週檢查只問執行。12 週指標在季內鎖住——每週接觸系統就是每週有機會重新談判，所以這條界線寫在機制裡，不靠自制。</p>
+          <button class="mist-btn mist-btn--secondary" type="button" disabled>修改目標 · 季界開放 · 剩 26 天</button>
+        </div>
+      </div>
+
+      <!-- ══════════ 06 排程 ══════════ -->
+      <div class="mist-card mist-card--lg">
+        <p class="mist-label mist-subtle">06 · 排程 SCHEDULE</p>
+        <h2 class="mist-h2">下週草案 · 只能刪</h2>
+        <p class="mist-body mist-muted">依下週行事曆算出可用時段後排七成，不排滿。冷啟動無樂觀係數，本季刻意排少到很確定做得完。</p>
+
+        <div class="mist-inset" id="sched">
+          <div class="mist-stack--sm mist-stack">
+
+            <div class="mist-row mist-row--between" data-row data-min="15" data-name="shadowing">
+              <span class="mist-stack--sm mist-stack mist-grow">
+                <span class="mist-body-strong">週一 · shadowing</span>
+                <span class="mist-caption mist-muted">掛在通勤後 · 累積型保底 · 15 分 · 低耗能</span>
+              </span>
+              <button class="mist-btn mist-btn--icon" type="button" data-del aria-label="刪除 週一 shadowing">
+                <svg class="mist-btn__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <hr class="mist-divider">
+
+            <div class="mist-row mist-row--between" data-row data-min="60" data-name="口說課" data-locked>
+              <span class="mist-stack--sm mist-stack mist-grow">
+                <span class="mist-body-strong">週三 · 口說課</span>
+                <span class="mist-caption mist-muted">既有強錨 · 不可刪 · 60 分 · 中耗能</span>
+              </span>
+              <span class="mist-badge mist-badge--done">強錨</span>
+            </div>
+            <hr class="mist-divider">
+
+            <div class="mist-row mist-row--between" data-row data-min="15" data-name="shadowing">
+              <span class="mist-stack--sm mist-stack mist-grow">
+                <span class="mist-body-strong">週三 · shadowing</span>
+                <span class="mist-caption mist-muted">掛在口說課之後 · 15 分 · 低耗能</span>
+              </span>
+              <button class="mist-btn mist-btn--icon" type="button" data-del aria-label="刪除 週三 shadowing">
+                <svg class="mist-btn__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <hr class="mist-divider">
+
+            <div class="mist-row mist-row--between" data-row data-min="180" data-name="HCI 作品集">
+              <span class="mist-stack--sm mist-stack mist-grow">
+                <span class="mist-body-strong">週四 · HCI 作品集</span>
+                <span class="mist-caption mist-muted">reviewer 邀約已寄出 · 180 分 · 高耗能</span>
+              </span>
+              <button class="mist-btn mist-btn--icon" type="button" data-del aria-label="刪除 週四 HCI 作品集">
+                <svg class="mist-btn__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <hr class="mist-divider">
+
+            <div class="mist-row mist-row--between" data-row data-min="60" data-name="健身房">
+              <span class="mist-stack--sm mist-stack mist-grow">
+                <span class="mist-body-strong">週六 · 健身房</span>
+                <span class="mist-caption mist-muted">週日全天聚會 · 不排隔天 · 60 分 · 中耗能</span>
+              </span>
+              <button class="mist-btn mist-btn--icon" type="button" data-del aria-label="刪除 週六 健身房">
+                <svg class="mist-btn__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="mist-stats">
+          <div class="mist-stat mist-stat--sm mist-stat--rule mist-stat--rule-mark"><span class="mist-stat__value" id="s-load">5.5</span><span class="mist-stat__label">已排小時 · 可用 7.8</span></div>
+          <div class="mist-stat mist-stat--sm mist-stat--rule"><span class="mist-stat__value" id="s-pct">71%</span><span class="mist-stat__label">容量佔用</span></div>
+          <div class="mist-stat mist-stat--sm mist-stat--rule" id="s-chain"><span class="mist-stat__value" id="s-shadow">2</span><span class="mist-stat__label" id="s-note">shadowing 次數 · 最低週量 2</span></div>
+        </div>
+
+        <p class="mist-caption mist-muted"><span class="mist-body-strong">沒有新增按鈕。</span>代排的副作用是擁有感下降，給刪除權可保住控制感；把方向限制在只能往少的那邊，剛好對治樂觀。<br><span class="mist-body-strong">容量不足時的順序：</span>無錨點的專案型 → 有錨點但時程寬鬆 → 有 deadline 壓力 → 累積型最低週量（最後才動）。</p>
+      </div>
+
+      <!-- ══════════ 附註 ══════════ -->
+      <div class="mist-card">
+        <p class="mist-label mist-subtle">附註 NOTES</p>
+        <p class="mist-caption mist-muted">本頁為黑客松原型。資料為示範用途，非真實個人紀錄。目標永不覆寫，只增加版本；每次變更記錄時間、理由與當時的能量狀態。</p>
+        <p class="mist-caption mist-muted">本系統不證明行動有效——證明「這個目標該搭配這個行動」需要對照組與數年時間。它只做到讓「有做但沒效」這個所有追蹤工具都會給綠燈的狀態被看見。</p>
+        <p class="mist-caption mist-muted">退場條件：12 週內有 4 週未回應週檢查，自動降頻到月，視為設計不合，不是個人失敗。</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ---------- 空檔調度 ---------- */
+  var state = { hours: 2, energy: "mid", cash: "ok" };
+  var CASH = {
+    ok:    "金錢流 · 近 90 天結餘 +NT$ 48,200",
+    tight: "金錢流 · 近 90 天結餘 −NT$ 6,100"
+  };
+
+  function wireSeg(id, key) {
+    var el = document.getElementById(id);
+    el.addEventListener("click", function (e) {
+      var b = e.target.closest(".mist-segmented__item"); if (!b) return;
+      el.querySelectorAll(".mist-segmented__item").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+      b.setAttribute("aria-pressed", "true");
+      state[key] = key === "hours" ? parseFloat(b.dataset.v) : b.dataset.v;
+      render();
+    });
+  }
+  wireSeg("seg-hours", "hours");
+  wireSeg("seg-energy", "energy");
+  wireSeg("seg-cash", "cash");
+
+  function decide() {
+    var h = state.hours, e = state.energy, c = state.cash;
+    if (e === "low" || h < 1) {
+      return {
+        pick: "shadowing",
+        unit: "一次 15 分 · 低耗能 · 累積型保底",
+        why: [
+          e === "low" ? "能量狀態低，高耗能動作排入必定爆掉" : "可用時數低於單位動作門檻",
+          "累積型斷鏈成本不對稱：斷一週要重來，作品集延一週就只是延一週",
+          "本週最低週量 2 次，這次計入保底"
+        ]
+      };
+    }
+    if (c === "tight") {
+      return {
+        pick: "接案作品集",
+        unit: "一夜一案 · 180 分 · 高耗能",
+        why: [
+          "金錢流轉負，優先補現金而非長期職涯資本",
+          "可用 " + h + " 小時、能量" + (e === "high" ? "高" : "中") + "，容得下高耗能單位動作",
+          "此分支未取得本季名額，計為超額投入並標記"
+        ]
+      };
+    }
+    return {
+      pick: "HCI 作品集",
+      unit: "一夜一案 · 180 分 · " + (h >= 4 ? "高耗能 · 時數充裕" : "高耗能"),
+      why: [
+        "金錢流健康，投長期職涯資本而非短期現金",
+        "此分支落後 45pt 且連續 8 週零動作，四判準中命中兩項",
+        h >= 4 ? "可用 4 小時，足以完成一個完整單位動作" : "可用 2 小時，只排最小可交付段落，不排理想量"
+      ]
+    };
+  }
+
+  var mainEl = document.getElementById("ans-main"),
+      unitEl = document.getElementById("ans-unit"),
+      whyEl  = document.getElementById("ans-why"),
+      cashEl = document.getElementById("cash-state");
+
+  function render() {
+    var r = decide();
+    mainEl.textContent = r.pick;
+    unitEl.textContent = r.unit;
+    whyEl.innerHTML = "";
+    r.why.forEach(function (t) {
+      var p = document.createElement("p");
+      p.className = "mist-caption mist-muted";
+      p.textContent = "→ " + t;
+      whyEl.appendChild(p);
+    });
+    cashEl.textContent = CASH[state.cash];
+  }
+  render();
+
+  /* ---------- 週檢查 ---------- */
+  document.getElementById("check").addEventListener("click", function (e) {
+    var b = e.target.closest(".mist-segmented__item"); if (!b) return;
+    b.closest(".mist-segmented").querySelectorAll(".mist-segmented__item").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+    b.setAttribute("aria-pressed", "true");
+  });
+
+  /* ---------- 下週排程：只能刪 ---------- */
+  var sched = document.getElementById("sched"),
+      loadEl = document.getElementById("s-load"),
+      pctEl = document.getElementById("s-pct"),
+      shadowEl = document.getElementById("s-shadow"),
+      noteEl = document.getElementById("s-note"),
+      chainEl = document.getElementById("s-chain"),
+      CAP = 7.8;
+
+  sched.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-del]"); if (!b) return;
+    var row = b.closest("[data-row]");
+    var gone = row.hasAttribute("data-gone");
+    if (gone) { row.removeAttribute("data-gone"); }
+    else { row.setAttribute("data-gone", ""); }
+    row.querySelector(".mist-caption").classList.toggle("mist-subtle", !gone);
+    var label = row.querySelector(".mist-body-strong");
+    label.textContent = gone ? label.textContent.replace(" · 已刪除", "") : label.textContent + " · 已刪除";
+    b.setAttribute("aria-label", (gone ? "刪除 " : "復原 ") + row.dataset.name);
+    recount();
+  });
+
+  function recount() {
+    var mins = 0, shadow = 0;
+    sched.querySelectorAll("[data-row]").forEach(function (row) {
+      if (row.hasAttribute("data-gone")) return;
+      mins += parseInt(row.dataset.min, 10);
+      if (row.dataset.name === "shadowing") shadow++;
+    });
+    var hrs = mins / 60;
+    loadEl.textContent = hrs.toFixed(1);
+    pctEl.textContent = Math.round(hrs / CAP * 100) + "%";
+    shadowEl.textContent = shadow;
+    if (shadow >= 2) {
+      noteEl.textContent = "shadowing 次數 · 最低週量 2";
+      chainEl.classList.remove("mist-stat--rule-accent");
+    } else {
+      noteEl.textContent = "低於最低週量 · 視為斷鏈";
+      chainEl.classList.add("mist-stat--rule-accent");
+    }
+  }
+  recount();
+})();
+</script>
+</body>
+</html>

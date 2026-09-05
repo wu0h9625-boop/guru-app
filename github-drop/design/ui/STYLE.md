@@ -46,7 +46,8 @@
 | 字級 | 12 / 14 / 20 / 28 / 40 / 56。跨度 4.6 倍 | `ref.font.size` 只有這六級 |
 | 字重 | **只有 regular 400 與 medium 500** | `ref.font.weight` 只有兩個值，沒有 bold |
 | 彩色面積 | 極小。只准出現在 badge、圓點、icon 底、頂規 | 見禁止事項 1 |
-| 圖表 | 用線不用面。細線 + 圓點、2px hairline | 見禁止事項 4 |
+| 圖表 | **標記寬度必須是 token 裡的固定值**，不得用 `flex: 1` 隨容器撐開。2px 細線（趨勢）／8–12px 條（讀數值）／8px 環（佔比） | 見禁止事項 4 |
+| 圖表格線 | 虛線（`4 4`）。**虛線只用在圖表格線**，其他地方一律實線 hairline | `comp.chart.grid.dash` |
 | 狀態色 | 完成＝深色實心／進行中＝淡藍／未開始＝淺灰／需注意＝橘紅。**不用綠黃紅** | `sys.color.status-*` |
 | 線 | hairline 1px、focus 2px。就這兩種 | `ref.border-width` 只有三個值 |
 | 字體 | Plus Jakarta Sans + Noto Sans TC | `ref.font.family` |
@@ -58,7 +59,11 @@
 1. **彩色不做大面積背景。** 橘紅與淡藍只能是點綴（badge、圓點、頂規、logo）。九成畫面必須是灰白黑。
 2. **不用陰影做層次。** 需要層次時往亮度階梯上找一階，不要加陰影。
 3. **同一區塊內不要用相鄰字級。** 要跳級才有兩極化效果（例：`caption` 12 配 `display` 56，不要 14 配 20）。
-4. **圖表不用實心填色。** 密集細線圖必須用固定線寬，**不能用 `flex: 1`** —— 根數少時會脹成實心色塊。
+4. **圖表標記不得用 `flex: 1` 撐開。** 寬度一定要來自 token 的固定值 —— 讓標記隨容器伸縮，少量資料時會脹成色塊，那正是最典型的 AI dashboard。
+
+> **這條在 2026-09-05 修訂過。** 原本是「圖表用線不用面，禁止實心填色」，
+> 但照著做出來的長條圖只有 1px、讀不出高度差。修訂後保留了原約束真正在保護的東西
+> （標記寬度是刻意選的，不是被容器撐出來的），同時讓圖表可讀。理由見 DECISIONS F10。
 
 > 原本還有第五條「內距不得小於圓角」，現在已經變成 `check_usage.py` 的自動檢查，
 > 所以從禁止清單移除了 —— 能被程式擋的東西不該留在需要人記得的清單裡。
@@ -84,9 +89,21 @@ tokens/build/mist.tokens.json    ← W3C DTCG，餵 style-dictionary（也是跨
 
 ## 6. 元件
 
-12 個，實作在 `css/components.css`，全狀態展示在 `reference.html`。
+16 個，實作在 `css/components.css`，全狀態展示在 `reference.html`。
 
-Surface / Nav / Button / Badge / OptionCard / SpecCard / Progress / TaskItem / StatTile / GeneratingState / Chart / Field
+Surface / Nav / Button / Badge / OptionCard / SpecCard / Progress / TaskItem / StatTile / GeneratingState / Field / Disclosure / Segmented / Slider / Table
+
+**圖表**（各有職責，不要混用）：
+
+| 元件 | 職責 |
+|---|---|
+| `.mist-linechart` | 時間序列。平滑曲線 + 虛線格線 + hover tooltip |
+| `.mist-funnel` | 階段轉換。8px 條，每階段一根深色標記 |
+| `.mist-donut` / `--half` | 部分佔整體、單一比例儀表。8px 描邊 |
+| `.mist-lollipop` | 少量分類。12px 圓頭條 + 圓點 |
+| `.mist-hairbars` | **趨勢紋理，不用來讀個別數值**。2px 細線 |
+
+折線圖的 hover 需要選配的 `js/mist-charts.js`；**沒有它靜態外觀依然正確**（曲線的 `d` 寫在 markup 裡）。
 
 實作 pattern 沿用 Duo：基底 class 只描述結構並讀 local variable，變體 class 只填 comp token、零屬性宣告。
 新增變體不必碰任何選擇器，也不可能漏掉狀態。
